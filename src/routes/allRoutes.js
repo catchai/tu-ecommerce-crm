@@ -54,16 +54,7 @@ import LockScreen from "../pages/AuthenticationInner/auth-lock-screen";
   // Dashboard
 import Dashboard from "../pages/Dashboard/index";
 import DashboardSaas from "../pages/Dashboard-saas/index";
-import DashboardCrypto from "../pages/Dashboard-crypto/index";
 
- //Crypto
-import CryptoWallet from "../pages/Crypto/crypto-wallet";
-import CryptoBuySell from "../pages/Crypto/crypto-buy-sell";
-import CryptoExchange from "../pages/Crypto/crypto-exchange";
-import CryptoLending from "../pages/Crypto/crypto-lending";
-import CryptoOrders from "../pages/Crypto/crypto-orders";
-import CryptoKYCApplication from "../pages/Crypto/crypto-kyc-application";
-import CryptoIcoLanding from "../pages/Crypto/CryptoIcoLanding/index";
 
 // Charts
 import ChartApex from "../pages/Charts/Apexcharts";
@@ -144,16 +135,7 @@ const userRoutes = [
 
 	{ path: "/dashboard", component: Dashboard },
 	{ path: "/dashboard-saas", component: DashboardSaas },
-	{ path: "/dashboard-crypto", component: DashboardCrypto },
 
-	//Crypto
-	{ path : "/crypto-wallet", component : CryptoWallet },
-	{ path : "/crypto-buy-sell", component : CryptoBuySell },
-	{ path : "/crypto-exchange", component : CryptoExchange },
-	{ path : "/crypto-lending", component : CryptoLending },
-	{ path : "/crypto-orders", component : CryptoOrders },
-	{ path : "/crypto-kyc-application", component : CryptoKYCApplication },
-	
 	//chat
 	{ path: "/chat", component: Chat },
 
@@ -262,7 +244,7 @@ const userRoutes = [
 	{ path: "/pages-timeline", component: PagesTimeline },
 	{ path: "/pages-faqs", component: PagesFaqs },
 	{ path: "/pages-pricing", component: PagesPricing },
-	
+
 	// this route should be at the end of all other routes
 	{ path: "/", exact: true, component: () => <Redirect to="/dashboard" /> }
 ];
@@ -277,7 +259,6 @@ const authRoutes = [
 	{ path: "/pages-comingsoon", component: PagesComingsoon },
 	{ path: "/pages-404", component: Pages404 },
 	{ path: "/pages-500", component: Pages500 },
-	{ path : "/crypto-ico-landing", component : CryptoIcoLanding },
 
 	// Authentication Inner
 	{ path: "/pages-login", component: Login1 },

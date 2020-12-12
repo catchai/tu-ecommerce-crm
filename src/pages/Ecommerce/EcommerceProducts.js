@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Messaging } from "../../src/client/Messaging";
+import React, { Component } from "react";
+
 import { Link } from "react-router-dom";
 import {
   Container,
@@ -33,91 +33,80 @@ import * as firebase from "firebase";
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 
-axios.defaults.baseURL = "http://localhost:3001/v1";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 
-var admin = require("firebase-admin");
+class EcommerceProducts extends Component {
 
-var serviceAccount = require("src/integrations/tuecommerce-9aca3-firebase-adminsdk-ubez1-6eecd1f71d.json");
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://tuecommerce-9aca3.firebaseio.com",
-});
+    // Paso1 : Definicion
+    state = {
+        data: [],
+        modalInsertar: false,
+        modalEditar: false,
+        form: {
+          calories: '',
+          categories: '',
+          combo: '',
+          discount: '',
+          discountprice: '',
+          flavors:'',
+          id:'',
+          name:'',
+          img:'',
+          label:'',
+          price:'',
+          rating:'',
+          text:'',
+          time:'',
+          title:'',
+          totalRating:'',
+          trending:'',
+          comments:''
+        },
+        id: 0
+      };
 
-const EcommerceProducts = (props) => {
-  const [activeTab, setactiveTab] = useState(false);
+  peticionGet = () => {
+      firebase.database().ref("data").child("product").on("value", (products) => {
+        if (products.val() !== null) {
+          this.setState({ ...this.state.data, data: products.val() });
+        } else {
+          this.setState({ data: [] });
+        }
+      });
+    };
 
-  // Accion 2 : Lectura desde el nivel empresa json
-  let catalogoRef = firebase
-    .database()
-    .ref()
-    .child("Detalle")
-    .child("descripcion");
-  let label_clothe = "prueba";
-  catalogoRef.on("value", (snapshot) => {
-    addLabel(snapshot.val());
-  });
-  function addLabel(valu) {
-    label_clothe = valu;
-    console.log(label_clothe);
-  }
+    // Se carga al incio del componente
+     componentDidMount() {
+     this.peticionGet();
+     }
 
-  // Carga de Filtros
-  let FilterClothes = [];
-  let filtersRef = firebase.database().ref("Filters");
-  filtersRef.on("child_added", (snap) => {
-    FilterClothes.push(snap.val());
-  });
-  console.log(FilterClothes);
 
-  function loadFilters(valu) {
-    FilterClothes.push(valu);
-  }
-  /////////////////////////////////////
-
-  // Carga de Productos Firebase
-  let Products = [];
-  let productsRef = firebase.database().ref("Products");
-  productsRef.on("child_added", (snap) => {
-    Products.push(snap.val());
-  });
-  console.log(Products);
-
-  function loadProducts(valu) {
-    Products.push(valu);
-  }
-  /////////////////////////////////////
-
-  function toggleTab(tab) {
-    if (activeTab !== tab) {
-      setactiveTab(tab);
-    }
-  }
-
+ render() {
   return (
     <React.Fragment>
-      <Messaging />
       <div className="page-content">
         <Container fluid>
           <Breadcrumbs title="Comercio" breadcrumbItem="Productos" />
           <Row>
             <Col lg="12">
               <Row>
-                {Products.map((product, key) => (
-                  <Col xl="4" sm="6" key={"_col_" + key}>
+                  {Object.keys(this.state.data).map(i=>{
+                  return <Col xl="4" sm="6" key={"_col_" + i}>
                     <Card>
                       <CardBody>
                         <div className="product-img position-relative">
-                          {product.isOffer ? (
+                          {this.state.data[i].isOffer ? (
                             <div className="avatar-sm product-ribbon">
                               <span className="avatar-title rounded-circle  bg-primary">
-                                {product.offer + "%"}
+                                {this.state.data[i].offer + "%"}
                               </span>
                             </div>
                           ) : null}
 
                           <img
-                            src={product.image}
+                            src={this.state.data[i].img}
                             alt=""
                             className="img-fluid mx-auto d-block"
                           />
@@ -125,15 +114,18 @@ const EcommerceProducts = (props) => {
                         <div className="mt-4 text-center">
                           <h5 className="mb-3 text-truncate">
                             <Link
-                              to={"/ecommerce-product-detail/" + product.id}
+                              to={"/ecommerce-product-detail/" + this.state.data[i].id}
                               className="text-dark"
                             >
-                              {product.name}{" "}
+                              {this.state.data[i].title}{" "}
                             </Link>
                           </h5>
+                          <h6  className="mb-3 text-truncate">
+                            <justify>{this.state.data[i].text}{" "}</justify>
+                          </h6>
                           <div className="text-muted mb-3">
                             <StarRatings
-                              rating={product.rating}
+                              rating={this.state.data[i].rating}
                               starRatedColor="#F1B44C"
                               starEmptyColor="#2D363F"
                               numberOfStars={5}
@@ -144,15 +136,15 @@ const EcommerceProducts = (props) => {
                           </div>
                           <h5 className="my-0">
                             <span className="text-muted mr-2">
-                              <del>${product.oldPrice}</del>
+                              <del>${this.state.data[i].price*1.6}</del>
                             </span>{" "}
-                            <b>${product.newPrice}</b>
+                            <b>${this.state.data[i].price}</b>
                           </h5>
                         </div>
                       </CardBody>
                     </Card>
                   </Col>
-                ))}
+                })}
               </Row>
 
               {/* <Row>
@@ -187,7 +179,8 @@ const EcommerceProducts = (props) => {
         </Container>
       </div>
     </React.Fragment>
-  );
-};
+  )
+ }
+}
 
 export default EcommerceProducts;
