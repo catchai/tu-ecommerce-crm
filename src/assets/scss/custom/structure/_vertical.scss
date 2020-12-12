@@ -1,6 +1,6 @@
 //
 // _menu.scss
-// 
+//
 
 .metismenu {
     margin: 0;
@@ -248,7 +248,7 @@
                         padding: 15px 20px;
                         min-height: 55px;
                         transition: none;
-                        
+
                         &:hover,
                         &:active,
                         &:focus {
@@ -358,7 +358,7 @@ body[data-sidebar="dark"] {
     }
 
     #sidebar-menu {
-    
+
         ul {
             li {
                 a {
@@ -367,7 +367,7 @@ body[data-sidebar="dark"] {
                     i {
                         color: $sidebar-dark-menu-item-icon-color;
                     }
-    
+
                     &:hover {
                         color: $sidebar-dark-menu-item-hover-color;
 
@@ -403,7 +403,7 @@ body[data-sidebar="dark"] {
 
                 > ul {
                     > li {
-                        
+
                         &:hover {
                             > a {
                                 background: lighten($sidebar-dark-bg, 2%);
@@ -427,11 +427,11 @@ body[data-sidebar="dark"] {
                     ul{
                         background-color: $sidebar-dark-bg;
                     }
-                    
+
                 }
 
                 ul{
-                    
+
                     li{
                         &.mm-active .active{
                             color: $sidebar-menu-item-active-color !important;
@@ -540,7 +540,7 @@ body[data-sidebar-size="small"] {
 
 body[data-sidebar="colored"] {
     .vertical-menu{
-        background-color: $primary;
+        background-color: red;
     }
     .navbar-brand-box{
         background-color: $primary;

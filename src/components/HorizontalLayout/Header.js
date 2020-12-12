@@ -110,7 +110,7 @@ const Header = (props) => {
               </form>
 
             <Dropdown className="dropdown-mega d-none d-lg-block ml-2" isOpen={menu} toggle={() => setMenu(!menu)}>
-                <DropdownToggle className="btn header-item waves-effect" caret tag="button"> 
+                <DropdownToggle className="btn header-item waves-effect" caret tag="button">
               {props.t('Mega Menu')}  {" "}
                   <i className="mdi mdi-chevron-down"></i></DropdownToggle>
                 <DropdownMenu className="dropdown-megamenu">
@@ -343,6 +343,7 @@ const Header = (props) => {
 
               <ProfileMenu />
 
+              // Icono de configuracion
               <div className="dropdown d-inline-block">
                 <button
                   onClick={() => { props.showRightSidebarAction(!props.showRightSidebar); }}
@@ -351,6 +352,8 @@ const Header = (props) => {
                   <i className="bx bx-cog bx-spin"></i>
                 </button>
               </div>
+
+
             </div>
           </div>
         </header>
@@ -364,5 +367,3 @@ const mapStatetoProps = state => {
 };
 
 export default connect(mapStatetoProps, { showRightSidebarAction,toggleLeftmenu })(withNamespaces()(Header));
-
-
