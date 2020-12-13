@@ -90,14 +90,15 @@ const SidebarContent = (props) => {
                             <span>{props.t('Ecommerce') }</span>
                         </Link>
                         <ul className="sub-menu" aria-expanded="false">
-                            <li><Link to="ecommerce-products">{props.t('Products') }</Link></li>
-                            <li><Link to="ecommerce-product-detail">{props.t('Product Detail') }</Link></li>
-                            <li><Link to="ecommerce-orders">{props.t('Orders') }</Link></li>
+                            <li><Link to="ecommerce-products">{props.t('Productos') }</Link></li>
+                            <li><Link to="ecommerce-product-detail">{props.t('Detalle de Productos') }</Link></li>
+                            <li><Link to="ecommerce-orders">{props.t('Ordenes') }</Link></li>
                             <li><Link to="ecommerce-customers">{props.t('Customers') }</Link></li>
-                            <li><Link to="ecommerce-cart">{props.t('Cart') }</Link></li>
-                            <li><Link to="ecommerce-checkout">{props.t('Checkout') }</Link></li>
-                            <li><Link to="ecommerce-shops">{props.t('Shops') }</Link></li>
-                            <li><Link to="ecommerce-add-product">{props.t('Add Product') }</Link></li>
+                            <li><Link to="ecommerce-cart">{props.t('Carrito de Compra') }</Link></li>
+                            <li><Link to="ecommerce-checkout">{props.t('Conformar Compra') }</Link></li>
+                            <li><Link to="ecommerce-shops">{props.t('Tiendas') }</Link></li>
+                            <li><Link to="ecommerce-add-product">{props.t('Agregar Productos') }</Link></li>
+                            <li><Link to="ecommerce-admin-product">{props.t('Gestión de Productos') }</Link></li>
                         </ul>
                     </li>
 

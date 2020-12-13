@@ -30,6 +30,7 @@ import EcommerceCart from "../pages/Ecommerce/EcommerceCart";
 import EcommerceCheckout from "../pages/Ecommerce/EcommerceCheckout";
 import EcommerceShops from "../pages/Ecommerce/EcommerceShops";
 import EcommerceAddProduct from "../pages/Ecommerce/EcommerceAddProduct";
+import EcommerceAdminProduct from "../pages/Ecommerce/EcommerceAdminProduct";
 
 //Email
 import EmailInbox from "../pages/Email/email-inbox";
@@ -154,6 +155,7 @@ const userRoutes = [
 	{ path: "/ecommerce-checkout", component: EcommerceCheckout },
 	{ path: "/ecommerce-shops", component: EcommerceShops },
 	{ path: "/ecommerce-add-product", component: EcommerceAddProduct },
+	{ path: "/ecommerce-admin-product", component: EcommerceAdminProduct },
 
 	//Email
 	{ path: "/email-inbox", component: EmailInbox },
