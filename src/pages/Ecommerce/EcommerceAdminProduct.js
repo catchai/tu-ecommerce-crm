@@ -37,19 +37,6 @@ class EcommerceAdmProduct extends Component {
     };
 
 
-    // const Orders = [
-    //             { id: "customCheck2", orderId: "#SK2540", billingName: "Neal Matthews", Date: "07 Oct, 2019", total: "$400", badgeclass: "success", paymentStatus: "Paid", methodIcon: "fa-cc-mastercard", paymentMethod: "Mastercard" },
-    //             { id: "customCheck3", orderId: "#SK2541", billingName: "Jamal Burnett", Date: "07 Oct, 2019", total: "$380", badgeclass: "danger", paymentStatus: "Chargeback", methodIcon: "fa-cc-visa", paymentMethod: "Visa" },
-    //             { id: "customCheck4", orderId: "#SK2542", billingName: "Juan Mitchell", Date: "06 Oct, 2019", total: "$384", badgeclass: "success", paymentStatus: "Paid", methodIcon: "fa-cc-paypal", paymentMethod: "Paypal" },
-    //             { id: "customCheck5", orderId: "#SK2543", billingName: "Barry Dick", Date: "05 Oct, 2019", total: "$412", badgeclass: "success", paymentStatus: "Paid", methodIcon: "fa-cc-mastercard", paymentMethod: "Mastercard" },
-    //             { id: "customCheck6", orderId: "#SK2544", billingName: "Ronald Taylor", Date: "04 Oct, 2019", total: "$404", badgeclass: "warning", paymentStatus: "Refund", methodIcon: "fa-cc-visa", paymentMethod: "Visa" },
-    //             { id: "customCheck7", orderId: "#SK2545", billingName: "Jacob Hunter", Date: "04 Oct, 2019", total: "$392", badgeclass: "success", paymentStatus: "Paid", methodIcon: "fa-cc-paypal", paymentMethod: "Paypal" },
-    //             { id: "customCheck8", orderId: "#SK2546", billingName: "William Cruz", Date: "03 Oct, 2019", total: "$374", badgeclass: "success", paymentStatus: "Paid", methodIcon: "fas fa-money-bill-alt", paymentMethod: "COD" },
-    //             { id: "customCheck9", orderId: "#SK2547", billingName: "Dustin Moser", Date: "02 Oct, 2019", total: "$350", badgeclass: "success", paymentStatus: "Paid", methodIcon: "fa-cc-paypal", paymentMethod: "Mastercard" },
-    //             { id: "customCheck10", orderId: "#SK2548", billingName: "Clark Benson", Date: "01 Oct, 2019", total: "$345", badgeclass: "warning", paymentStatus: "Refund", methodIcon: "fa-cc-paypal", paymentMethod: "Visa" },
-    //         ];
-
-
     peticionGet = () => {
       firebase.child("data").child("products").on("value", (prdto) => {
         if (prdto.val() !== null) {
@@ -120,6 +107,7 @@ class EcommerceAdmProduct extends Component {
     }
 
 
+
     render() {
 
     return (
@@ -142,7 +130,8 @@ class EcommerceAdmProduct extends Component {
                                             </Col>
                                             <Col sm="8">
                                                 <div className="text-sm-right">
-                                                    <Button type="button" color="success" className="btn-rounded waves-effect waves-light mb-2 mr-2"><i className="mdi mdi-plus mr-1"></i> Ingresar Nuevo Producto</Button>
+                                                      <Button type="button"  onClick={event =>  window.location.href='/ecommerce-add-product'} color="success" className="btn-rounded waves-effect waves-light mb-2 mr-2"><i className="mdi mdi-plus mr-1"></i> Ingresar Nuevo Producto</Button>
+
                                                 </div>
                                             </Col>
                                         </Row>
@@ -199,7 +188,7 @@ class EcommerceAdmProduct extends Component {
                                                                     }
                                                                 </td>
                                                                 <td>
-                                                                    <Button type="button" color="primary" className="btn-sm btn-rounded" onClick={()=>this.setState({modalEditar: true})}>
+                                                                    <Button type="button" color="primary" className="btn-sm btn-rounded"  onClick={event =>  window.location.href='/ecommerce-product-detail'}>
                                                                         Ver Detalle
                                                                     </Button>
                                                                 </td>
@@ -263,6 +252,11 @@ class EcommerceAdmProduct extends Component {
                         </Row>
                     </Container>
                 </div>
+
+
+
+
+
 
                 <Modal isOpen={this.state.modalEditar} role="dialog"  className="exampleModal" tabindex="-1" >
                     <div className="modal-content">
