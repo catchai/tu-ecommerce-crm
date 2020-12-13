@@ -18,7 +18,7 @@ import {
 import Select from "react-select";
 import Dropzone from "react-dropzone";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
-import * as firebase from "firebase";
+import  firebase from "../../firebase";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 
@@ -27,33 +27,49 @@ class EcommerceAddProduct extends Component {
 
     // Paso1 : Definicion
     state = {
+        data: [],
         modalInsertar: false,
         modalEditar: false,
         form: {
+          calories: '',
           categories: '',
+          combo: '',
           discount: '',
+          discountprice: '',
           flavors:'',
+          id:'',
+          name:'',
+          img:'',
+          label:'',
           price:'',
           rating:'',
           text:'',
+          time:'',
           title:'',
+          totalRating:'',
+          trending:'',
+          comments:''
         },
         id: 0
       };
 
-    constructor(props) {
-          super();
-      }
 
-    peticionPost=()=>{
-           firebase.child("data").shild("product").push(this.state.form,
-             error=>{
-               if(error) {
-                 console.log(error)
-               }
-             });
-             this.setState({modalInsertar: false});
-       }
+        peticionPost=()=>{
+          let count = 0;
+          alert('Count: ' + count);
+          firebase.child('data').child("products").once('value', function(snapshot)
+          {
+              alert('Count: ' + count);
+              count  =(snapshot.numChildren() + 1);
+              alert('Count: ' + count);
+
+          });
+
+           this.state.form.id = count;
+           firebase.child('data').child("products").push().set(this.state.form);
+           this.setState({modalInsertar: false});
+
+       };
 
        onSelectCategoryChange=e=>{
            this.setState({categories: e});
@@ -63,9 +79,7 @@ class EcommerceAddProduct extends Component {
                    categories: e
              }});
 
-           console.log(this.state.form.categories);
-
-        }
+        };
 
        onSelectFlavorsChange=e=>{
             this.setState({flavors: e});
@@ -74,9 +88,8 @@ class EcommerceAddProduct extends Component {
               form:{...this.state.form,
                     flavors: e
               }});
+        };
 
-            console.log(this.state.form.flavors);
-        }
 
        handleChange=e=>{
           this.setState({
@@ -84,27 +97,20 @@ class EcommerceAddProduct extends Component {
                   [e.target.name]: e.target.value
             }});
 
-            console.log(this.state);
-       }
+       };
 
 
 render() {
-  console.log('....entre el render y el return');
-
   let catego = [];
-  firebase.database().ref("data/category").on("child_added", (snap) => {
+  firebase.child("data/category").on("child_added", (snap) => {
     catego.push(snap.val());
 
   });
-
-
   let flavors = [];
-  firebase.database().ref("data/flavor").on("child_added", (snap) => {
+  firebase.child("data/flavor").on("child_added", (snap) => {
     flavors.push(snap.val());
   });
 
-  console.log(catego);
-  console.log(flavors);
   return (
 
     <React.Fragment>
@@ -179,13 +185,15 @@ render() {
                         <Label htmlFor="text">
                         Categoría
                         </Label>
-                          <Select   options={catego}  value={this.state.categories} onChange={this.onSelectCategoryChange} />
+                         <Select  options={catego}  value={this.state.categories} onChange={this.onSelectCategoryChange} />
+
                         <FormGroup>
                         </FormGroup>
                         <Label htmlFor="text">
                           Ingredientes
                         </Label>
-                          <Select  options={flavors}  value={this.state.flavors} onChange={this.onSelectFlavorsChange}/>
+                        <Select options={flavors}  value={this.state.flavors} onChange={this.onSelectFlavorsChange}/>
+
                         <FormGroup>
                           <Label htmlFor="text">
                             Descripción Producto

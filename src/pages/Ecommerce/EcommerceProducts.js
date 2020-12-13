@@ -28,7 +28,7 @@ import Nouislider from "nouislider-react";
 import "nouislider/distribute/nouislider.css";
 
 // Accion 1 Paso importar la libreria de Firebase
-import * as firebase from "firebase";
+import firebase from "../../firebase";
 
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb";
