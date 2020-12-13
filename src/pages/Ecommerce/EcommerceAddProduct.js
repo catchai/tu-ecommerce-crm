@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { Component, useState, useEffect } from 'react';
+import AsyncSelect from 'react-select/async';
 import { Link } from "react-router-dom";
 import {
   Container,
@@ -16,174 +17,101 @@ import {
 } from "reactstrap";
 import Select from "react-select";
 import Dropzone from "react-dropzone";
-
-//Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb";
-
-
-// Accion 1 Paso importar la libreria de Firebase
 import * as firebase from "firebase";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
+
+class EcommerceAddProduct extends Component {
 
 
-const EcommerceAddProduct = (props) => {
-
-  const [selectedFiles, setselectedFiles] = useState([]);
-  var [productObjects, setProductObjects] = useState({});
-  const [currentId, setCurrentId] = useState('');  
-
-  const options = [
-    { value: "AK", label: "Alaska" },
-    { value: "HI", label: "Hawaii" },
-    { value: "CA", label: "California" },
-    { value: "NV", label: "Nevada" },
-    { value: "OR", label: "Oregon" },
-    { value: "WA", label: "Washington" },
-  ];
-
-
-  useEffect(() => {  
-    firebase.database().ref("data").child("product").on('value', snapshot => {  
-        if (snapshot.val() != null) {  
-            setProductObjects({  
-                ...snapshot.val()  
-            });  
-        }  else{
-            setProductObjects({});
-        }
-    })  
-}, [])  
-
-  function handleAcceptedFiles(files) {
-    files.map((file) =>
-      Object.assign(file, {
-        preview: URL.createObjectURL(file),
-        formattedSize: formatBytes(file.size),
-      })
-    );
-
-    setselectedFiles(files);
-  }
-
-  function formatBytes(bytes, decimals = 2) {
-    if (bytes === 0) return "0 Bytes";
-    const k = 1024;
-    const dm = decimals < 0 ? 0 : decimals;
-    const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
-
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
-  }
-
-
-
-  function addProductData(productId, title, price) {
-
-    var postData = {
-        title: title,
-        price: price
+    // Paso1 : Definicion
+    state = {
+        modalInsertar: false,
+        modalEditar: false,
+        form: {
+          categories: '',
+          discount: '',
+          flavors:'',
+          price:'',
+          rating:'',
+          text:'',
+          title:'',
+        },
+        id: 0
       };
 
-    
-      // Get a key for a new Post.
-      var newPostKey = firebase.database().ref("data").child("product").push().key;
-    
-      // Write the new post's data simultaneously in the posts list and the user's post list.
-      var updates = {};
-    //   updates['/Products/' + newPostKey] = postData;
-      updates['/data/product/' + productId + '/' + newPostKey] = postData;
-    
-      return firebase.database().ref().update(updates);
-    
-  }
-
-
-  function updateProductDataWithCompletion(productname,price) {
-
-    console.log(':::::::::::::::::::::');
-    console.log(productname);
-    console.log(price);
-   // var newPostKey = firebase.database().ref("data").child("productos").push().key;
-
-    // [START rtdb_write_new_user_completion]
-    firebase.database().ref("data").child("product").set({
-        id: 1,
-        title: productname,
-        price: price
-    }, function(error) {
-      if (error) {
-        // The write failed...
-      } else {
-        // Data saved successfully!
-        console.log('Exito CSM!!!!');
+    constructor(props) {
+          super();
       }
-    });
-    // [START rtdb_write_new_user_completion]
-  }
+
+    peticionPost=()=>{
+           firebase.child("data").shild("product").push(this.state.form,
+             error=>{
+               if(error) {
+                 console.log(error)
+               }
+             });
+             this.setState({modalInsertar: false});
+       }
+
+       onSelectCategoryChange=e=>{
+           this.setState({categories: e});
+
+           this.setState({
+             form:{...this.state.form,
+                   categories: e
+             }});
+
+           console.log(this.state.form.categories);
+
+        }
+
+       onSelectFlavorsChange=e=>{
+            this.setState({flavors: e});
+
+            this.setState({
+              form:{...this.state.form,
+                    flavors: e
+              }});
+
+            console.log(this.state.form.flavors);
+        }
+
+       handleChange=e=>{
+          this.setState({
+            form:{...this.state.form,
+                  [e.target.name]: e.target.value
+            }});
+
+            console.log(this.state);
+       }
 
 
+render() {
+  console.log('....entre el render y el return');
+
+  let catego = [];
+  firebase.database().ref("data/category").on("child_added", (snap) => {
+    catego.push(snap.val());
+
+  });
 
 
-  const addOrEdit = (obj) => {  
-    if (currentId === '')  
-    firebase.database().ref("data").child("product").push(  
-            obj,  
-            err => {  
-                if (err)  
-                    console.log(err)  
-                else  
-                    setCurrentId('')  
-            })  
-    else  
-            firebase.database().ref("data").child(`Student/${currentId}`).set(  
-            obj,  
-            err => {  
-                if (err)  
-                    console.log(err)  
-                else  
-                    setCurrentId('')  
-            })  
-}  
+  let flavors = [];
+  firebase.database().ref("data/flavor").on("child_added", (snap) => {
+    flavors.push(snap.val());
+  });
 
-
-
-
+  console.log(catego);
+  console.log(flavors);
   return (
+
     <React.Fragment>
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumb */}
           <Breadcrumbs title="Comercio" breadcrumbItem="Agregar Producto" />
-
-          <table className="table table-bordered heading-hvr">  
-                                        <thead>  
-                                            <tr>  
-                                                <th className="active">Full Name</th>  
-                                                <th>Roll No</th>  
-                                                <th>Subject</th>  
-                                                <th>Class</th>  
-                                                <th width="60"> </th>  
-                                                <th width="60"> </th>  
-                                            </tr>  
-                                        </thead>  
-                                        <tbody>  
-                                            {  
-                                                Object.keys(productObjects).map((key) => (  
-                                                    <tr key={key}>  
-                                                        <td>{productObjects[key].title}</td>  
-                                                        <td>{productObjects[key].price}</td>  
-                                                        <td>{productObjects[key].label}</td>  
-                                                        <td>{productObjects[key].text}</td>  
-  
-                                                        <td className="case-record">  
-                                                            <button type="button" className="btn btn-info"  
-                                                                onClick={() => { setCurrentId(key) }}>Edit</button>  
-  
-                                                        </td>  
-                                                    </tr>  
-                                                ))  
-                                            }  
-                                            </tbody>
-                                            </table>
           <Row>
             <Col xs="12">
               <Card>
@@ -199,72 +127,75 @@ const EcommerceAddProduct = (props) => {
                         <FormGroup>
                           <Label htmlFor="productname">Nombre del Producto</Label>
                           <Input
-                            id="productname"
-                            name="productname"
+                            id="title"
+                            name="title"
                             type="text"
                             className="form-control"
+                            onChange={this.handleChange}
                           />
                         </FormGroup>
                         <FormGroup>
-                          <Label htmlFor="manufacturername">
-                            Manufacturer Name
+                          <Label htmlFor="dicount">
+                            Descuento %
                           </Label>
                           <Input
-                            id="manufacturername"
-                            name="manufacturername"
+                            id="discount"
+                            name="discount"
                             type="text"
                             className="form-control"
+                              onChange={this.handleChange}
                           />
                         </FormGroup>
                         <FormGroup>
-                          <Label htmlFor="manufacturerbrand">
-                            Manufacturer Brand
+                          <Label htmlFor="rating">
+                          Rating
                           </Label>
                           <Input
-                            id="manufacturerbrand"
-                            name="manufacturerbrand"
+                            id="rating"
+                            name="rating"
                             type="text"
                             className="form-control"
+                              onChange={this.handleChange}
                           />
                         </FormGroup>
                         <FormGroup>
-                          <Label htmlFor="price">Price</Label>
+                          <Label htmlFor="price">Precio</Label>
                           <Input
                             id="price"
                             name="price"
                             type="text"
                             className="form-control"
+                              onChange={this.handleChange}
                           />
                         </FormGroup>
                       </Col>
 
                       <Col sm="6">
+
                         <FormGroup>
-                          <Label className="control-label">Category</Label>
-                          <select className="form-control select2">
-                            <option>Select</option>
-                            <option value="AK">Alaska</option>
-                            <option value="HI">Hawaii</option>
-                          </select>
+
+
                         </FormGroup>
-                        <FormGroup className="select2-container">
-                          <Label className="control-label">Features</Label>
-                          <Select
-                            classNamePrefix="select2-selection"
-                            placeholder="Chose..."
-                            title="Country"
-                            options={options}
-                            isMulti
-                          />
-                        </FormGroup>
+                        <Label htmlFor="text">
+                        Categoría
+                        </Label>
+                          <Select   options={catego}  value={this.state.categories} onChange={this.onSelectCategoryChange} />
                         <FormGroup>
-                          <Label htmlFor="productdesc">
-                            Product Description
+                        </FormGroup>
+                        <Label htmlFor="text">
+                          Ingredientes
+                        </Label>
+                          <Select  options={flavors}  value={this.state.flavors} onChange={this.onSelectFlavorsChange}/>
+                        <FormGroup>
+                          <Label htmlFor="text">
+                            Descripción Producto
                           </Label>
                           <textarea
                             className="form-control"
-                            id="productdesc"
+                            id="text"
+                            name="text"
                             rows="5"
+                            onChange={this.handleChange}
                           ></textarea>
                         </FormGroup>
                       </Col>
@@ -273,7 +204,7 @@ const EcommerceAddProduct = (props) => {
                     <Button
                       type="submit"
                       color="primary"
-                      onClick={updateProductDataWithCompletion}
+                      onClick={()=>this.peticionPost()}
                       className="mr-1 waves-effect waves-light"
                     >
                       Guardar Cambios
@@ -289,70 +220,6 @@ const EcommerceAddProduct = (props) => {
                 </CardBody>
               </Card>
 
-              <Card>
-                <CardBody>
-                  <CardTitle className="mb-3">Product Images</CardTitle>
-                  <Form>
-                    <Dropzone
-                      onDrop={(acceptedFiles) => {
-                        handleAcceptedFiles(acceptedFiles);
-                      }}
-                    >
-                      {({ getRootProps, getInputProps }) => (
-                        <div className="dropzone">
-                          <div
-                            className="dz-message needsclick"
-                            {...getRootProps()}
-                          >
-                            <input {...getInputProps()} />
-                            <div className="dz-message needsclick">
-                              <div className="mb-3">
-                                <i className="display-4 text-muted bx bxs-cloud-upload"></i>
-                              </div>
-                              <h4>Drop files here or click to upload.</h4>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </Dropzone>
-                    <div className="dropzone-previews mt-3" id="file-previews">
-                      {selectedFiles.map((f, i) => {
-                        return (
-                          <Card
-                            className="mt-1 mb-0 shadow-none border dz-processing dz-image-preview dz-success dz-complete"
-                            key={i + "-file"}
-                          >
-                            <div className="p-2">
-                              <Row className="align-items-center">
-                                <Col className="col-auto">
-                                  <img
-                                    data-dz-thumbnail=""
-                                    height="80"
-                                    className="avatar-sm rounded bg-light"
-                                    alt={f.name}
-                                    src={f.preview}
-                                  />
-                                </Col>
-                                <Col>
-                                  <Link
-                                    to="#"
-                                    className="text-muted font-weight-bold"
-                                  >
-                                    {f.name}
-                                  </Link>
-                                  <p className="mb-0">
-                                    <strong>{f.formattedSize}</strong>
-                                  </p>
-                                </Col>
-                              </Row>
-                            </div>
-                          </Card>
-                        );
-                      })}
-                    </div>
-                  </Form>
-                </CardBody>
-              </Card>
 
             </Col>
           </Row>
@@ -360,6 +227,7 @@ const EcommerceAddProduct = (props) => {
       </div>
     </React.Fragment>
   );
+};
 };
 
 export default EcommerceAddProduct;
