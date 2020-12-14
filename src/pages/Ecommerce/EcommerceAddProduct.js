@@ -18,11 +18,14 @@ import {
 import Select from "react-select";
 import Dropzone from "react-dropzone";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
-import  firebase from "../../firebase";
+// import  firebase from "../../firebase";
+import * as firebase from "firebase";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 
 class EcommerceAddProduct extends Component {
+
+
 
 
     // Paso1 : Definicion
@@ -56,17 +59,13 @@ class EcommerceAddProduct extends Component {
 
         peticionPost=()=>{
           let count = 0;
-          alert('Count: ' + count);
-          firebase.child('data').child("products").once('value', function(snapshot)
+          firebase.databse().ref("data/products").once("value", function(snapshot)
           {
-              alert('Count: ' + count);
+              alert("WOW");
               count  =(snapshot.numChildren() + 1);
-              alert('Count: ' + count);
-
           });
-
            this.state.form.id = count;
-           firebase.child('data').child("products").push().set(this.state.form);
+           firebase.databse().ref("data/products").push().set(this.state.form);
            this.setState({modalInsertar: false});
 
        };
@@ -101,13 +100,15 @@ class EcommerceAddProduct extends Component {
 
 
 render() {
+
+
   let catego = [];
-  firebase.child("data/category").on("child_added", (snap) => {
+  firebase.database().ref("data/category").on("child_added", (snap) => {
     catego.push(snap.val());
 
   });
   let flavors = [];
-  firebase.child("data/flavor").on("child_added", (snap) => {
+  firebase.database().ref("data/flavor").on("child_added", (snap) => {
     flavors.push(snap.val());
   });
 
@@ -179,7 +180,6 @@ render() {
                       <Col sm="6">
 
                         <FormGroup>
-
 
                         </FormGroup>
                         <Label htmlFor="text">

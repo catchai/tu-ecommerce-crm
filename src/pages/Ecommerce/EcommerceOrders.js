@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Component, useState } from 'react';
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Input, Button, Card, CardBody, Table, Label, Badge, Modal, ModalHeader, ModalBody, ModalFooter, UncontrolledTooltip, Pagination, PaginationItem, PaginationLink } from "reactstrap";
 
@@ -8,27 +8,37 @@ import Breadcrumbs from '../../components/Common/Breadcrumb';
 import img4 from "../../assets/images/product/img-4.png";
 import img7 from "../../assets/images/product/img-7.png";
 
-const EcommerceOrders = (props) => {
+import * as firebase from "firebase";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-const [modal, setmodal] = useState(false);
+class EcommerceOrders extends Component {
 
-    const Orders = [
-                { id: "customCheck2", orderId: "#SK2540", billingName: "Neal Matthews", Date: "07 Oct, 2019", total: "$400", badgeclass: "success", paymentStatus: "Paid", methodIcon: "fa-cc-mastercard", paymentMethod: "Mastercard" },
-                { id: "customCheck3", orderId: "#SK2541", billingName: "Jamal Burnett", Date: "07 Oct, 2019", total: "$380", badgeclass: "danger", paymentStatus: "Chargeback", methodIcon: "fa-cc-visa", paymentMethod: "Visa" },
-                { id: "customCheck4", orderId: "#SK2542", billingName: "Juan Mitchell", Date: "06 Oct, 2019", total: "$384", badgeclass: "success", paymentStatus: "Paid", methodIcon: "fa-cc-paypal", paymentMethod: "Paypal" },
-                { id: "customCheck5", orderId: "#SK2543", billingName: "Barry Dick", Date: "05 Oct, 2019", total: "$412", badgeclass: "success", paymentStatus: "Paid", methodIcon: "fa-cc-mastercard", paymentMethod: "Mastercard" },
-                { id: "customCheck6", orderId: "#SK2544", billingName: "Ronald Taylor", Date: "04 Oct, 2019", total: "$404", badgeclass: "warning", paymentStatus: "Refund", methodIcon: "fa-cc-visa", paymentMethod: "Visa" },
-                { id: "customCheck7", orderId: "#SK2545", billingName: "Jacob Hunter", Date: "04 Oct, 2019", total: "$392", badgeclass: "success", paymentStatus: "Paid", methodIcon: "fa-cc-paypal", paymentMethod: "Paypal" },
-                { id: "customCheck8", orderId: "#SK2546", billingName: "William Cruz", Date: "03 Oct, 2019", total: "$374", badgeclass: "success", paymentStatus: "Paid", methodIcon: "fas fa-money-bill-alt", paymentMethod: "COD" },
-                { id: "customCheck9", orderId: "#SK2547", billingName: "Dustin Moser", Date: "02 Oct, 2019", total: "$350", badgeclass: "success", paymentStatus: "Paid", methodIcon: "fa-cc-paypal", paymentMethod: "Mastercard" },
-                { id: "customCheck10", orderId: "#SK2548", billingName: "Clark Benson", Date: "01 Oct, 2019", total: "$345", badgeclass: "warning", paymentStatus: "Refund", methodIcon: "fa-cc-paypal", paymentMethod: "Visa" },
-            ];
+  // Paso1 : Definicion
+  state = {
+      data: [],
+      modalInsertar: false,
+      modalEditar: false,
+      form: {
+        Date : '',
+        badgeclass : '',
+        billingName : '',
+        id : '',
+        methodIcon : '',
+        orderId : '',
+        paymentMethod : '',
+        paymentStatus : '',
+        total : '',
+      },
+      id: 0
+    };
 
+
+render(){
     return (
            <React.Fragment>
                 <div className="page-content">
                     <Container fluid>
-                        <Breadcrumbs title="Ecommerce" breadcrumbItem="Orders" />
+                        <Breadcrumbs title="Comercio" breadcrumbItem="Ventas" />
                         <Row>
                             <Col xs="12">
                                 <Card>
@@ -37,14 +47,14 @@ const [modal, setmodal] = useState(false);
                                             <Col sm="4">
                                                 <div className="search-box mr-2 mb-2 d-inline-block">
                                                     <div className="position-relative">
-                                                        <Input type="text" className="form-control" placeholder="Search..." />
+                                                        <Input type="text" className="form-control" placeholder="Buscar..." />
                                                         <i className="bx bx-search-alt search-icon"></i>
                                                     </div>
                                                 </div>
                                             </Col>
                                             <Col sm="8">
                                                 <div className="text-sm-right">
-                                                    <Button type="button" color="success" className="btn-rounded waves-effect waves-light mb-2 mr-2"><i className="mdi mdi-plus mr-1"></i> Add New Order</Button>
+                                                    <Button type="button" color="success" className="btn-rounded waves-effect waves-light mb-2 mr-2"><i className="mdi mdi-plus mr-1"></i> Agregar Venta Nueva</Button>
                                                 </div>
                                             </Col>
                                         </Row>
@@ -59,99 +69,66 @@ const [modal, setmodal] = useState(false);
                                                                 <Label className="custom-control-label" htmlFor="customCheck1">&nbsp;</Label>
                                                             </div>
                                                         </th>
-                                                        <th>Order ID</th>
-                                                        <th>Billing Name</th>
-                                                        <th>Date</th>
+                                                        <th>Nº Orden</th>
+                                                        <th>Estado Pago</th>
+                                                        <th>Cliente</th>
+                                                        <th>Fecha</th>
                                                         <th>Total</th>
-                                                        <th>Payment Status</th>
-                                                        <th>Payment Method</th>
-                                                        <th>View Details</th>
-                                                        <th>Action</th>
+                                                        <th>Método de Pago</th>
+                                                        <th>Ver Detalle</th>
+                                                        <th>Acción</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {
-                                                        Orders.map((order, key) =>
-                                                            <tr key={"_order_" + key}>
+                                                { Object.keys(this.state.data).map(i=>{
+                                                  console.log(i);
+                                                    return  <tr key={"_order_" + i}>
                                                                 <td>
                                                                     <div className="custom-control custom-checkbox">
-                                                                        <Input type="checkbox" className="custom-control-input" id={order.id} />
-                                                                        <Label className="custom-control-label" htmlFor={order.id}>&nbsp;</Label>
+                                                                        <Input type="checkbox" className="custom-control-input" id={this.state.data[i].id} />
+                                                                        <Label className="custom-control-label" htmlFor={this.state.data[i].id}>&nbsp;</Label>
                                                                     </div>
                                                                 </td>
-                                                                <td><Link to="#" className="text-body font-weight-bold">{order.orderId}</Link></td>
-                                                                <td>{order.billingName}</td>
+                                                                <td><Link to="#" className="text-body font-weight-bold">{this.state.data[i].orderId}</Link></td>
+                                                                <td>  <Badge className={"font-size-12 badge-soft-" + this.state.data[i].badgeclass} color={this.state.data[i].badgeClass} pill>{this.state.data[i].paymentStatus}</Badge></td>
                                                                 <td>
-                                                                    {order.Date}
+                                                                  {this.state.data[i].billingName}
                                                                 </td>
                                                                 <td>
-                                                                    {order.total}
+                                                                      {this.state.data[i].Date}
                                                                 </td>
                                                                 <td>
-                                                                    <Badge className={"font-size-12 badge-soft-" + order.badgeclass} color={order.badgeClass} pill>{order.paymentStatus}</Badge>
+                                                                    {this.state.data[i].total}
                                                                 </td>
                                                                 <td>
-                                                                    <i className={"fab " + order.methodIcon + " mr-1"}></i> {order.paymentMethod}
+                                                                    <i className={"fab " + this.state.data[i].methodIcon + " mr-1"}></i> {this.state.data[i].paymentMethod}
                                                                 </td>
                                                                 <td>
-                                                                    <Button type="button" color="primary" className="btn-sm btn-rounded" onClick={() => { setmodal(!modal) }}>
-                                                                        View Details
+                                                                    <Button type="button" color="primary" className="btn-sm btn-rounded" onClick={()=>this.setState({modalEditar: true})}>
+                                                                        Ver Detalle
                                                                     </Button>
                                                                 </td>
                                                                 <td>
                                                                     <Link to="#" className="mr-3 text-primary">
                                                                         <i className="mdi mdi-pencil font-size-18 mr-3" id="edittooltip"></i>
                                                                         <UncontrolledTooltip placement="top" target="edittooltip">
-                                                                            Edit
+                                                                            Editar
                                                                         </UncontrolledTooltip >
                                                                     </Link>
                                                                     <Link to="#" className="text-danger">
                                                                         <i className="mdi mdi-close font-size-18 mr-3" id="deletetooltip"></i>
                                                                         <UncontrolledTooltip placement="top" target="deletetooltip">
-                                                                            Delete
+                                                                            Eliminar
                                                                         </UncontrolledTooltip >
                                                                     </Link>
                                                                 </td>
                                                             </tr>
-                                                        )
-                                                    }
+                                                      })}
 
                                                 </tbody>
                                             </Table>
                                         </div>
-                                        <Pagination className="pagination pagination-rounded justify-content-end mb-2">
-                                            <PaginationItem disabled>
-                                                <PaginationLink previous href="#" />
-                                            </PaginationItem>
-                                            <PaginationItem>
-                                                <PaginationLink href="#">
-                                                    1
-                                                </PaginationLink>
-                                            </PaginationItem>
-                                            <PaginationItem active>
-                                                <PaginationLink href="#">
-                                                    2
-                                                </PaginationLink>
-                                            </PaginationItem>
-                                            <PaginationItem>
-                                                <PaginationLink href="#">
-                                                    3
-                                                </PaginationLink>
-                                            </PaginationItem>
-                                            <PaginationItem>
-                                                <PaginationLink href="#">
-                                                    4
-                                                </PaginationLink>
-                                            </PaginationItem>
-                                            <PaginationItem>
-                                                <PaginationLink href="#">
-                                                    5
-                                                </PaginationLink>
-                                            </PaginationItem>
-                                            <PaginationItem>
-                                                <PaginationLink next href="#" />
-                                            </PaginationItem>
-                                        </Pagination>
+
                                     </CardBody>
                                 </Card>
                             </Col>
@@ -159,10 +136,10 @@ const [modal, setmodal] = useState(false);
                     </Container>
                 </div>
 
-                <Modal isOpen={modal} role="dialog" autoFocus={true} centered={true} className="exampleModal" tabindex="-1" toggle={() => { setmodal(!modal) } }>
+                <Modal isOpen={this.state.modalEditar} role="dialog" autoFocus="true" centered="true" className="exampleModal" tabindex="-1" toggle="true">
                     <div className="modal-content">
-                        <ModalHeader toggle={() => { setmodal(!modal) } }>
-                            Order Details
+                        <ModalHeader toggle="true">
+                            Detalle de Orden
                             </ModalHeader >
                         <ModalBody>
                             <p className="mb-2">Product id: <span className="text-primary">#SK2540</span></p>
@@ -235,12 +212,12 @@ const [modal, setmodal] = useState(false);
                             </div>
                         </ModalBody>
                         <ModalFooter>
-                            <Button type="button" color="secondary" onClick={() => { setmodal(!modal) } }>Close</Button>
+                            <Button type="button" color="secondary" onClick={()=>this.setState({modalEditar: false})}>Cerrar</Button>
                         </ModalFooter>
                     </div>
                 </Modal>
             </React.Fragment>
           );
     }
-        
+}
 export default EcommerceOrders;

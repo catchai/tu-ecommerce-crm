@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Input, Button, Card, CardBody, Table, Label, Badge, Modal, ModalHeader, ModalBody, ModalFooter, UncontrolledTooltip, Pagination, PaginationItem, PaginationLink } from "reactstrap";
-import  firebase from "../../firebase";
+// import  firebase from "../../firebase";
+import * as firebase from "firebase";
 import Breadcrumbs from '../../components/Common/Breadcrumb';
 import img4 from "../../assets/images/product/img-4.png";
 import img7 from "../../assets/images/product/img-7.png";
@@ -38,7 +39,7 @@ class EcommerceAdmProduct extends Component {
 
 
     peticionGet = () => {
-      firebase.child("data").child("products").on("value", (prdto) => {
+      firebase.database().ref("data").child("products").on("value", (prdto) => {
         if (prdto.val() !== null) {
           this.setState({ ...this.state.data, data: prdto.val() });
         } else {

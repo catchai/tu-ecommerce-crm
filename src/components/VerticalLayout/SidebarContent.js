@@ -80,63 +80,40 @@ const SidebarContent = (props) => {
 
                     <li className="menu-title">{props.t('Apps') }</li>
 
-
-
-
-
                     <li>
                         <Link to="/#" className="has-arrow waves-effect">
                             <i className="bx bx-store"></i>
                             <span>{props.t('Ecommerce') }</span>
                         </Link>
                         <ul className="sub-menu" aria-expanded="false">
-                            <li><Link to="ecommerce-admin-product">{props.t('Gestión de Productos') }</Link></li>
-                            // <li><Link to="ecommerce-product-detail">{props.t('Detalle de Productos') }</Link></li>
-                            <li><Link to="ecommerce-orders">{props.t('Órdenes') }</Link></li>
+                            <li><Link to="ecommerce-orders">{props.t('Ventas') }</Link></li>
                             <li><Link to="ecommerce-customers">{props.t('Clientes') }</Link></li>
-                            <li><Link to="ecommerce-cart">{props.t('Carrito de Compra') }</Link></li>
-                            <li><Link to="ecommerce-checkout">{props.t('Confirmar Compra') }</Link></li>
-                            <li><Link to="ecommerce-shops">{props.t('Tiendas') }</Link></li>
-                            // <li><Link to="ecommerce-add-product">{props.t('Agregar Productos') }</Link></li>
+                            <li><Link to="ecommerce-admin-product">{props.t('Gestión de Productos') }</Link></li>
                             <li><Link to="ecommerce-products">{props.t('Vista Productos') }</Link></li>
+                            <li><Link to="ecommerce-shops">{props.t('Tiendas') }</Link></li>
                         </ul>
                     </li>
-
-
-                    <li>
-                        <Link to="/#" className="has-arrow waves-effect">
-                            <i className="bx bx-envelope"></i>
-                            <span>{props.t('Email')}</span>
-                        </Link>
-                        <ul className="sub-menu" aria-expanded="false">
-                            <li><Link to="email-inbox">{props.t('Inbox')}</Link></li>
-                            <li><Link to="email-read">{props.t('Read Email')} </Link></li>
-                        </ul>
-                    </li>
-
                     <li>
                         <Link to="/#" className="has-arrow waves-effect">
                             <i className="bx bx-receipt"></i>
-                            <span>{props.t('Invoices')}</span>
+                            <span>{props.t('Facturas')}</span>
                         </Link>
                         <ul className="sub-menu" aria-expanded="false">
-                            <li><Link to="invoices-list">{props.t('Invoice List')}</Link></li>
-                            <li><Link to="invoices-detail">{props.t('Invoice Detail')}</Link></li>
+                            <li><Link to="invoices-list">{props.t('Lista Facturas')}</Link></li>
+                            <li><Link to="invoices-detail">{props.t('Detalle de Facturas')}</Link></li>
                         </ul>
                     </li>
-
-
 
 
                     <li>
                         <Link to="/#" className="has-arrow waves-effect">
                             <i className="bx bxs-user-detail"></i>
-                            <span>{props.t('Contacts')}</span>
+                            <span>{props.t('Contactos')}</span>
                         </Link>
                         <ul className="sub-menu" aria-expanded="false">
-                            <li><Link to="contacts-grid">{props.t('User Grid')}</Link></li>
-                            <li><Link to="contacts-list">{props.t('User List')}</Link></li>
-                            <li><Link to="contacts-profile">{props.t('Profile')}</Link></li>
+                            <li><Link to="contacts-grid">{props.t('Base de Usuario')}</Link></li>
+                            <li><Link to="contacts-list">{props.t('Lista de Usuarios')}</Link></li>
+                            <li><Link to="contacts-profile">{props.t('Perfiles')}</Link></li>
                         </ul>
                     </li>
 
