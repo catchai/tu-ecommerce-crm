@@ -56,17 +56,14 @@ class EcommerceAdmProduct extends Component {
      // Paso 3: Ingresar el Item Nuevo
      peticionPost=()=>{
        let count = 0;
-       firebase.child('data').child("products").once('value', function(snapshot)
+       firebase.database().ref(`data/products`).once('value', function(snapshot)
        {
            count  =(snapshot.numChildren() + 1);
            alert('Count: ' + count);
-
        });
-
         this.state.form.id = count;
-        firebase.child('data').child("products").push().set(this.state.form);
+        firebase.database().ref(`data/products`).push().set(this.state.form);
         this.setState({modalInsertar: false});
-
 
     }
 
@@ -80,7 +77,7 @@ class EcommerceAdmProduct extends Component {
 
 
     peticionPut=()=>{
-    firebase.child(`data/products/${this.state.id}`).set(
+    firebase.database().ref(`data/products/${this.state.id}`).set(
      this.state.form,
      error=>{
        if(error)console.log(error)
@@ -91,7 +88,7 @@ class EcommerceAdmProduct extends Component {
     peticionDelete=()=>{
         if(window.confirm(`Estás seguro que deseas eliminar el producto ${this.state.form && this.state.form.title}?`))
         {
-        firebase.child(`data/products/${this.state.id}`).remove(
+        firebase.database().ref(`data/products/${this.state.id}`).remove(
          error=>{
            if(error)console.log(error)
          });
@@ -253,9 +250,6 @@ class EcommerceAdmProduct extends Component {
                         </Row>
                     </Container>
                 </div>
-
-
-
 
 
 

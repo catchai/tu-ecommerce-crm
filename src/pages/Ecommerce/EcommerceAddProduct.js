@@ -59,13 +59,12 @@ class EcommerceAddProduct extends Component {
 
         peticionPost=()=>{
           let count = 0;
-          firebase.databse().ref("data/products").once("value", function(snapshot)
+          firebase.database().ref(`data/products`).once("value", function(snapshot)
           {
-              alert("WOW");
               count  =(snapshot.numChildren() + 1);
           });
            this.state.form.id = count;
-           firebase.databse().ref("data/products").push().set(this.state.form);
+           firebase.database().ref(`data/products`).push().set(this.state.form);
            this.setState({modalInsertar: false});
 
        };

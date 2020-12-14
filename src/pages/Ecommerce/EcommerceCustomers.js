@@ -21,14 +21,14 @@ const EcommerceCustomers = (props) => {
                                             <Col sm="4">
                                                 <div className="search-box mr-2 mb-2 d-inline-block">
                                                     <div className="position-relative">
-                                                        <Input type="text" className="form-control" placeholder="Search..." />
+                                                        <Input type="text" className="form-control" placeholder="Buscar..." />
                                                         <i className="bx bx-search-alt search-icon"></i>
                                                     </div>
                                                 </div>
                                             </Col>
                                             <Col sm="8">
                                                 <div className="text-sm-right">
-                                                    <Button type="button" color="success" className="btn-rounded waves-effect waves-light mb-2 mr-2"><i className="mdi mdi-plus mr-1"></i> New Customers</Button>
+                                                    <Button type="button" color="success" className="btn-rounded waves-effect waves-light mb-2 mr-2"><i className="mdi mdi-plus mr-1"></i> Nuevos Clientes</Button>
                                                 </div>
                                             </Col>
                                         </Row>
@@ -39,12 +39,12 @@ const EcommerceCustomers = (props) => {
                                                     <tr>
                                                         <th>#</th>
                                                         <th>Username</th>
-                                                        <th>Phone / Email</th>
-                                                        <th>Address</th>
+                                                        <th>Teléfono / Correo</th>
+                                                        <th>Dirección</th>
                                                         <th>Rating</th>
-                                                        <th>Wallet Balance</th>
-                                                        <th>Joining Date</th>
-                                                        <th>Action</th>
+                                                        <th>Cuenta</th>
+                                                        <th>Fecha Ingreso</th>
+                                                        <th>Acción</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -334,5 +334,5 @@ const EcommerceCustomers = (props) => {
             </React.Fragment>
           );
     }
-        
+
 export default EcommerceCustomers;
