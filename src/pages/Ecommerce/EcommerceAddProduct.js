@@ -55,15 +55,25 @@ class EcommerceAddProduct extends Component {
         },
         id: 0
       };
+          count = 0;
+          peticionGet = () => {
+
+            firebase.database().ref(`data/products`).once('value').then((snapshot) => {
+
+                this.count  = (snapshot.numChildren()) + 1;
+            });
+
+          };
+
+          // Se carga al incio del componente
+          componentDidMount() {
+             this.peticionGet();
+           }
 
 
         peticionPost=()=>{
-          let count = 0;
-          firebase.database().ref(`data/products`).once("value", function(snapshot)
-          {
-              count  =(snapshot.numChildren() + 1);
-          });
-           this.state.form.id = count;
+           alert(this.count);
+           this.state.form.id = this.count;
            firebase.database().ref(`data/products`).push().set(this.state.form);
            this.setState({modalInsertar: false});
 

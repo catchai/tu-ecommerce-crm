@@ -86,11 +86,13 @@ const SidebarContent = (props) => {
                             <span>{props.t('Ecommerce') }</span>
                         </Link>
                         <ul className="sub-menu" aria-expanded="false">
-                            <li><Link to="ecommerce-orders">{props.t('Ventas') }</Link></li>
-                            <li><Link to="ecommerce-customers">{props.t('Clientes') }</Link></li>
+                            <li><Link to="ecommerce-orders">{props.t('Gestión de Ventas') }</Link></li>
+                            <li><Link to="ecommerce-admin-ingredientes">{props.t('Gestión de Clientes') }</Link></li>
                             <li><Link to="ecommerce-admin-product">{props.t('Gestión de Productos') }</Link></li>
+                            <li><Link to="ecommerce-admin-categorias">{props.t('Gestión de Categorías') }</Link></li>
+                            <li><Link to="ecommerce-admin-ingredientes">{props.t('Gestión de Ingredientes') }</Link></li>
                             <li><Link to="ecommerce-products">{props.t('Vista Productos') }</Link></li>
-                            <li><Link to="ecommerce-shops">{props.t('Tiendas') }</Link></li>
+                            <li><Link to="ecommerce-shops">{props.t('Gestión de Tiendas') }</Link></li>
                         </ul>
                     </li>
                     <li>

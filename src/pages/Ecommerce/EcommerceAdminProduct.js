@@ -56,13 +56,13 @@ class EcommerceAdmProduct extends Component {
      // Paso 3: Ingresar el Item Nuevo
      peticionPost=()=>{
        let count = 0;
-       firebase.database().ref(`data/products`).once('value', function(snapshot)
+       firebase.database().ref("data/products").once("value", function(snapshot)
        {
            count  =(snapshot.numChildren() + 1);
-           alert('Count: ' + count);
+
        });
         this.state.form.id = count;
-        firebase.database().ref(`data/products`).push().set(this.state.form);
+        firebase.database().ref("data/products").push().set(this.state.form);
         this.setState({modalInsertar: false});
 
     }
@@ -72,7 +72,6 @@ class EcommerceAdmProduct extends Component {
         form:{...this.state.form,
               [e.target.name]: e.target.value
       }})
-      console.log(this.state.form);
     }
 
 
@@ -165,7 +164,7 @@ class EcommerceAdmProduct extends Component {
                                                                         <Label className="custom-control-label" htmlFor={this.state.data[i].id}>&nbsp;</Label>
                                                                     </div>
                                                                 </td>
-                                                                <td><Link to="#" className="text-body font-weight-bold">{this.state.data[i].title}</Link></td>
+                                                                <td><Link to="#" className="text-body font-weight-bold">{this.state.data[i].id}</Link></td>
                                                                 <td>{this.state.data[i].title}</td>
                                                                 <td>
                                                                     {this.state.data[i].text}

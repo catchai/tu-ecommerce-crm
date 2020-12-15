@@ -20,9 +20,9 @@ const EmailToolbar = (props) => {
                             <i className="fa fa-folder"></i> <i className="mdi mdi-chevron-down ml-1"></i>
                         </DropdownToggle>
                         <DropdownMenu>
-                            <DropdownItem to="#">Updates</DropdownItem>
+                            <DropdownItem to="#">Actualizaciones</DropdownItem>
                             <DropdownItem to="#">Social</DropdownItem>
-                            <DropdownItem to="#">Team Manage</DropdownItem>
+                            <DropdownItem to="#">Maneja Equipo</DropdownItem>
                         </DropdownMenu>
                     </Dropdown>
                     <Dropdown isOpen={tag_Menu} toggle={() => { settag_Menu(!tag_Menu) } } className="btn-group mr-2 mb-2 mb-sm-0">
@@ -30,9 +30,9 @@ const EmailToolbar = (props) => {
                             <i className="fa fa-tag"></i> <i className="mdi mdi-chevron-down ml-1"></i>
                         </DropdownToggle>
                         <DropdownMenu>
-                            <DropdownItem to="#">Updates</DropdownItem>
+                            <DropdownItem to="#">Actualizaciones</DropdownItem>
                             <DropdownItem to="#">Social</DropdownItem>
-                            <DropdownItem to="#">Team Manage</DropdownItem>
+                            <DropdownItem to="#">Manejar Equipo</DropdownItem>
                         </DropdownMenu>
                     </Dropdown>
                     <Dropdown isOpen={more_Menu} toggle={() => { setmore_Menu(!more_Menu) } } className="btn-group mr-2 mb-2 mb-sm-0">
@@ -40,16 +40,16 @@ const EmailToolbar = (props) => {
                             More <i className="mdi mdi-dots-vertical ml-2"></i>
                         </DropdownToggle>
                         <DropdownMenu>
-                            <DropdownItem to="#">Mark as Unread</DropdownItem>
-                            <DropdownItem to="#">Mark as Important</DropdownItem>
-                            <DropdownItem to="#">Add to Tasks</DropdownItem>
-                            <DropdownItem to="#">Add Star</DropdownItem>
-                            <DropdownItem to="#">Mute</DropdownItem>
+                            <DropdownItem to="#">Marcar como leido</DropdownItem>
+                            <DropdownItem to="#">Marcar como Importante</DropdownItem>
+                            <DropdownItem to="#">Agregar a Tareas</DropdownItem>
+                            <DropdownItem to="#">Agregar a Favorto</DropdownItem>
+                            <DropdownItem to="#">Bloquear</DropdownItem>
                         </DropdownMenu>
                     </Dropdown>
                 </div>
             </React.Fragment>
           );
     }
-        
+
 export default EmailToolbar;

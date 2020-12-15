@@ -26,7 +26,7 @@ const invoice_list =  [
             { id: 9, image: avatar2, founder: "Louis Brandon", founderAt: "Skote", invoiceID: "14259", company: "Email Template UI", invoicePrice: "1355", date: "15 Oct, 19" },
         ];
     return (
-           
+
             <React.Fragment>
                 <div className="page-content">
                     <Container fluid>
@@ -44,7 +44,7 @@ const invoice_list =  [
                         <Row>
                             <Col xs="12">
                                 <div className="text-center my-3">
-                                    <Link to="#" className="text-success"><i className="bx bx-loader bx-spin font-size-18 align-middle mr-2"></i> Load more </Link>
+                                    <Link to="#" className="text-success"><i className="bx bx-loader bx-spin font-size-18 align-middle mr-2"></i> Cargar Mas ... </Link>
                                 </div>
                             </Col>
                         </Row>
@@ -54,5 +54,5 @@ const invoice_list =  [
             </React.Fragment>
           );
     }
-        
+
 export default InvoicesList;

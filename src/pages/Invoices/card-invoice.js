@@ -27,7 +27,7 @@ const CardInvoice = (props) => {
                                         }
 
                                         <h5 className="mb-1 font-size-15 text-truncate">{props.data.founder}</h5>
-                                        <Link to="#" className="text-muted">@Skote</Link>
+                                        <Link to="#" className="text-muted">@TU-ECOMMERCE</Link>
                                     </div>
                                 </Col>
 
@@ -63,5 +63,5 @@ const CardInvoice = (props) => {
             </React.Fragment>
           );
     }
-        
+
 export default CardInvoice;
