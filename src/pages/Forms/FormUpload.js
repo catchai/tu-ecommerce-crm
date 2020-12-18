@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Row, Col, Card, Form, CardBody, CardTitle, CardSubtitle,Container } from "reactstrap";
+import {   Label, Button, Row, Col, Card, Form, FormGroup, CardBody, CardTitle, CardSubtitle,Container } from "reactstrap";
 import Dropzone from "react-dropzone";
+import Select from "react-select";
+import * as firebase from 'firebase';
 
 // Breadcrumb
 import Breadcrumbs from '../../components/Common/Breadcrumb';
@@ -11,14 +13,110 @@ const FormUpload = (props) => {
 
   const [selectedFiles, setselectedFiles] = useState([]);
 
+  const [selectedFolder, setselectedFolder] = useState([]);
+
+///   adherido >>>>>>>>>>>>>>>>>>>>><
+  const [image, setImage] = useState(null);
+  const [url, setUrl] = useState("");
+  const [progress, setProgress] = useState(0);
+
+  let folders = [];
+
+
+  const handleChange = (e) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
+  };
+
+///   <<<<<<<<<<<<<<<<<<<<< adherido
+
+  async function loadPicture(){
+
+    var storage = firebase.storage().ref();
+
+    var listRef = storage.child('/');
+
+    // Find all the prefixes and items.
+    listRef.listAll().then(function(res) {
+      res.prefixes.forEach(function(folderRef) {
+        // All the prefixes under listRef.
+        // You may call listAll() recursively on them.
+        console.log('Folder: \n ' + folderRef);
+        this.folders.push(folderRef);
+      });
+      res.items.forEach(function(itemRef) {
+          // All the items under listRef.
+          console.log('Archivos: \n' +  itemRef);
+
+      });
+    }).catch(function(error) {
+        // Uh-oh, an error occurred!
+        console.log('UPS.....:' + error);
+    });
+
+  }
+
+    /**
+    Paginacion
+    **/
+    async function pageTokenExample(){
+
+      var storage = firebase.storage().ref();
+
+      // Create a reference under which you want to list
+      var listRef = storage.child('productos');
+      // Fetch the first page of 100.
+      var firstPage = await listRef.list({ maxResults: 100});
+      // Use the result.
+      // processItems(firstPage.items)
+      // processPrefixes(firstPage.prefixes)
+      // Fetch the second page if there are more elements.
+      if (firstPage.nextPageToken) {
+        var secondPage = await listRef.list({
+        maxResults: 100,
+        pageToken: firstPage.nextPageToken,
+      });
+      // processItems(secondPage.items)
+      // processPrefixes(secondPage.prefixes)
+      }
+    }
+
+    function handleAcceptedFolder(folder)
+    {
+      setselectedFolder(folder);
+    }
+
    function handleAcceptedFiles(files)
    {
-    files.map(file =>
-      Object.assign(file, {
-        preview: URL.createObjectURL(file),
-        formattedSize: formatBytes(file.size)
-      })
-    );
+    const storage = firebase.storage();
+    const uploadTask = storage.ref(`productos/${files[0].name}`).put(files[0]);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        setProgress(progress);
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        storage
+          .ref("productos")
+          .child(files[0].name)
+          .getDownloadURL()
+          .then((url) => {
+            setUrl(url);
+            console.log(url);
+          });
+      });
+
+      Object.assign(files[0], {
+        preview: URL.createObjectURL(files[0]),
+        formattedSize: formatBytes(files[0].size)
+      });
      setselectedFiles(files);
   };
 
@@ -35,19 +133,55 @@ const FormUpload = (props) => {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
   };
 
+// adherido >>>>>>>>>>>>>>>>>>><
+
+const handleUpload = () => {
+
+  const storage = firebase.storage();
+
+  const uploadTask = storage.ref(`productos/${image.name}`).put(image);
+  uploadTask.on(
+    "state_changed",
+    (snapshot) => {
+      const progress = Math.round(
+        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+      );
+      setProgress(progress);
+    },
+    (error) => {
+      console.log(error);
+    },
+    () => {
+      storage
+        .ref("productos")
+        .child(image.name)
+        .getDownloadURL()
+        .then((url) => {
+          setUrl(url);
+        });
+    }
+  );
+};
+
+console.log("image: ", image);
+
+// <<<<<<<<<<<<  adherido
+
+
     return (
        <React.Fragment>
         <div className="page-content">
           <Container fluid={true}>
 
-            <Breadcrumbs title="Form" breadcrumbItem="Form File Upload" />
+            <Breadcrumbs title="Medios" breadcrumbItem="Gestion de Imágenes" />
 
             <Row>
               <Col className="col-12">
                 <Card>
                   <CardBody>
-                    <CardTitle>Dropzone</CardTitle>
-                    <CardSubtitle className="mb-3"> DropzoneJS is an open source library that provides drag’n’drop file uploads with image previews.
+                    <CardTitle>Zona Drop File</CardTitle>
+                    <CardSubtitle className="mb-3"> Ingrese los archivos sobre la zona, para ingresarlos a la nube .Dichos Archivos serán cargados y visualizados.
+                    <progress striped animated color="primary" value={progress} max="100" />
                     </CardSubtitle>
                     <Form>
                       <Dropzone
@@ -65,7 +199,7 @@ const FormUpload = (props) => {
                               <div className="mb-3">
                                 <i className="display-4 text-muted bx bxs-cloud-upload"></i>
                               </div>
-                              <h4>Drop files here or click to upload.</h4>
+                              <h4>Drop archivos aquí o click para subir.</h4>
                             </div>
                           </div>
                         )}
@@ -110,9 +244,47 @@ const FormUpload = (props) => {
                       </div>
                     </Form>
 
-                    <div className="text-center mt-4">
-                      <button type="button" className="btn btn-primary waves-effect waves-light">Send Files</button>
-                    </div>
+                  </CardBody>
+                </Card>
+              </Col>
+            </Row>
+            <Row>
+              <Col className="col-12">
+              <Card>
+                <CardBody>
+                <CardTitle>Carpetas Encontradas</CardTitle>
+                <CardSubtitle className="mb-3">
+                  Listado de Carpetas de Recursos
+                </CardSubtitle>
+
+                  <Row>
+                    <Col sm="6">
+                      <FormGroup>
+                        <Label htmlFor="text">
+
+                        </Label>
+                        <Select  options={folders}  value={selectedFolder} onChange={acceptedFolder =>
+                           { handleAcceptedFolder(acceptedFolder) }
+                        } />
+                      </FormGroup>
+
+                      </Col>
+                      <Col sm="6">
+                        <FormGroup>
+                          <Label htmlFor="text">
+
+                          </Label>
+                          <Button
+                            type="submit"
+                            color="primary"
+                            onClick={loadPicture()}
+                            className="mr-1 waves-effect waves-light"
+                          >
+                          Cargar Carpetas
+                          </Button>
+                        </FormGroup>
+                        </Col>
+                    </Row>
                   </CardBody>
                 </Card>
               </Col>

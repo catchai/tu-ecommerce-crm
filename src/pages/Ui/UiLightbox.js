@@ -90,48 +90,8 @@ const UiLightbox = (props) => {
             ) : null}
 
             <Row>
-              <Col lg={6}>
-                <Card>
-                  <CardBody>
-                    <CardTitle>Single image lightbox</CardTitle>
-                    <CardSubtitle className="mb-3">Three simple popups with different scaling settings.</CardSubtitle>
-                    <Row>
-                      <Col className="col-6">
-                        <div>
-                          <h5 className="mt-0 font-14 m-b-15">
-                            Fits (Horz/Vert)
-                          </h5>
-                          <img
-                            onClick={() => { setisFits(true) } }
-                            className="img-fluid"
-                            alt="Skote"
-                            src={img2}
-                            width="145"
-                          />
-                        </div>
-                      </Col>
-                      <Col className="col-6">
-                        <div>
-                          <h5 className="mt-0 font-size-14">Effects</h5>
-                          <img
-                            onClick={() => { setisEffects(true) } }
-                            className="img-fluid"
-                            alt=""
-                            src={img3}
-                            width="75"
-                          />
 
-                          <CardText className="mt-2 mb-0 text-muted">
-                            No gaps, zoom animation, close icon in top-right corner.
-                          </CardText>
-                        </div>
-                      </Col>
-                    </Row>
-                  </CardBody>
-                </Card>
-              </Col>
-
-              <Col lg={6}>
+              <Col lg={12}>
                 <Card>
                   <CardBody>
                     <CardTitle>Lightbox gallery</CardTitle>

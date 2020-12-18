@@ -23,7 +23,7 @@ import * as firebase from "firebase";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 
-class EcommerceAddProduct extends Component {
+class EcommerceAddOrder extends Component {
 
 
 
@@ -131,7 +131,7 @@ render() {
             <Col xs="12">
               <Card>
                 <CardBody>
-                  <CardTitle>Información Básica</CardTitle>
+                  <CardTitle>Ingreso Órden de Venta</CardTitle>
                   <CardSubtitle className="mb-3">
                     Completar toda la información requerida
                   </CardSubtitle>
@@ -225,13 +225,15 @@ render() {
                     >
                       Guardar Cambios
                     </Button>
+                    <Link to="/ecommerce-orders">
                     <Button
-                      type="submit"
+                      type="button"
                       color="secondary"
                       className="waves-effect"
                     >
-                      Cancelar
+                      Volver
                     </Button>
+                    </Link>
                   </Form>
                 </CardBody>
               </Card>
@@ -246,4 +248,4 @@ render() {
 };
 };
 
-export default EcommerceAddProduct;
+export default EcommerceAddOrder;

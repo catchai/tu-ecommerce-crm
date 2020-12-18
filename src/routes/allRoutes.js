@@ -25,11 +25,14 @@ import ProjectsCreate from "../pages/Projects/projects-create";
 import EcommerceProducts from "../pages/Ecommerce/EcommerceProducts";
 import EcommerceProductDetail from "../pages/Ecommerce/EcommerceProductDetail";
 import EcommerceOrders from "../pages/Ecommerce/EcommerceOrders";
+import EcommerceAddOrder from "../pages/Ecommerce/EcommerceAddOrder";
+import EcommerceEditOrder from "../pages/Ecommerce/EcommerceEditOrder";
 import EcommerceCustomers from "../pages/Ecommerce/EcommerceCustomers";
 import EcommerceCart from "../pages/Ecommerce/EcommerceCart";
 import EcommerceCheckout from "../pages/Ecommerce/EcommerceCheckout";
 import EcommerceShops from "../pages/Ecommerce/EcommerceShops";
 import EcommerceAddProduct from "../pages/Ecommerce/EcommerceAddProduct";
+import EcommerceEditProduct from "../pages/Ecommerce/EcommerceEditProduct";
 import EcommerceAdminProduct from "../pages/Ecommerce/EcommerceAdminProduct";
 
 //Email
@@ -91,6 +94,7 @@ import FormValidations from "../pages/Forms/FormValidations";
 import FormMask from "../pages/Forms/FormMask";
 import FormRepeater from "../pages/Forms/FormRepeater";
 import FormUpload from "../pages/Forms/FormUpload";
+import FormStorage from "../pages/Forms/FormStorage";
 import FormWizard from "../pages/Forms/FormWizard";
 import FormXeditable from "../pages/Forms/FormXeditable";
 
@@ -150,11 +154,14 @@ const userRoutes = [
 	{ path: "/ecommerce-products", component: EcommerceProducts },
 	{ path: "/ecommerce-product-detail", component: EcommerceProductDetail },
 	{ path: "/ecommerce-orders", component: EcommerceOrders },
+	{ path: "/ecommerce-add-order", component: EcommerceAddOrder },
+	{ path: "/ecommerce-edit-order/:id", component: EcommerceEditOrder },
 	{ path: "/ecommerce-customers", component: EcommerceCustomers },
 	{ path: "/ecommerce-cart", component: EcommerceCart },
 	{ path: "/ecommerce-checkout", component: EcommerceCheckout },
 	{ path: "/ecommerce-shops", component: EcommerceShops },
 	{ path: "/ecommerce-add-product", component: EcommerceAddProduct },
+	{ path: "/ecommerce-edit-product/:id", component: EcommerceEditProduct },
 	{ path: "/ecommerce-admin-product", component: EcommerceAdminProduct },
 
 	//Email
@@ -214,6 +221,7 @@ const userRoutes = [
 	{ path: "/form-mask", component: FormMask },
 	{ path: "/form-repeater", component: FormRepeater },
 	{ path: "/form-uploads", component: FormUpload },
+	{ path: "/form-storage", component: FormStorage },
 	{ path: "/form-wizard", component: FormWizard },
 	{ path: "/form-validation", component: FormValidations },
 	{ path: "/form-xeditable", component: FormXeditable },
@@ -242,13 +250,13 @@ const userRoutes = [
 	{ path: "/ui-image-cropper", component: UiImageCropper },
 
 	//Utility
-	{ path: "/pages-starter", component: PagesStarter },
+		{ path: "/pages-starter", component: PagesStarter },
 	{ path: "/pages-timeline", component: PagesTimeline },
 	{ path: "/pages-faqs", component: PagesFaqs },
 	{ path: "/pages-pricing", component: PagesPricing },
 
 	// this route should be at the end of all other routes
-	{ path: "/", exact: true, component: () => <Redirect to="/dashboard" /> }
+	{ path: "/", exact: true, component: () => <Redirect to="/calendar" /> }
 ];
 
 const authRoutes = [

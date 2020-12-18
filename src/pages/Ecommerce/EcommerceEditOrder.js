@@ -1,6 +1,6 @@
 import React, { Component, useState, useEffect } from 'react';
 import AsyncSelect from 'react-select/async';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   Container,
   Row,
@@ -22,94 +22,21 @@ import Breadcrumbs from "../../components/Common/Breadcrumb";
 import * as firebase from "firebase";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
+// Rating Plugin
+import Rating from "react-rating";
+import RatingTooltip from "react-rating-tooltip";
 
-class EcommerceAddProduct extends Component {
-
-
-
-
-    // Paso1 : Definicion
-    state = {
-        data: [],
-        modalInsertar: false,
-        modalEditar: false,
-        form: {
-          calories: '',
-          categories: '',
-          combo: '',
-          discount: '',
-          discountprice: '',
-          flavors:'',
-          id:'',
-          name:'',
-          img:'',
-          label:'',
-          price:'',
-          rating:'',
-          text:'',
-          time:'',
-          title:'',
-          totalRating:'',
-          trending:'',
-          comments:''
-        },
-        id: 0
-      };
-          count = 0;
-          peticionGet = () => {
-
-            firebase.database().ref(`data/products`).once('value').then((snapshot) => {
-
-                this.count  = (snapshot.numChildren()) + 1;
-            });
-
-          };
-
-          // Se carga al incio del componente
-          componentDidMount() {
-             this.peticionGet();
-           }
+class  EcommerceEditOrder extends Component {
 
 
-        peticionPost=()=>{
-           this.state.form.id = this.count;
-           firebase.database().ref(`data/products`).push().set(this.state.form);
-           this.setState({modalInsertar: false});
-
-       };
-
-       onSelectCategoryChange=e=>{
-           this.setState({categories: e});
-
-           this.setState({
-             form:{...this.state.form,
-                   categories: e
-             }});
-
-        };
-
-       onSelectFlavorsChange=e=>{
-            this.setState({flavors: e});
-
-            this.setState({
-              form:{...this.state.form,
-                    flavors: e
-              }});
-        };
-
-
-       handleChange=e=>{
-          this.setState({
-            form:{...this.state.form,
-                  [e.target.name]: e.target.value
-            }});
-
-       };
 
 
 render() {
-
-
+  const { params } = this.props;
+  const { id } = params;
+  // console.log(this.props);
+  // const { params } = this.props;
+  // const { id } = params;
   let catego = [];
   firebase.database().ref("data/category").on("child_added", (snap) => {
     catego.push(snap.val());
@@ -126,12 +53,12 @@ render() {
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumb */}
-          <Breadcrumbs title="Comercio" breadcrumbItem="Agregar Producto" />
+          <Breadcrumbs title="Comercio" breadcrumbItem="Editar Orden de Compra" />
           <Row>
             <Col xs="12">
               <Card>
                 <CardBody>
-                  <CardTitle>Información Básica</CardTitle>
+                  <CardTitle>Edición Orden de Compra  id:{id}</CardTitle>
                   <CardSubtitle className="mb-3">
                     Completar toda la información requerida
                   </CardSubtitle>
@@ -165,6 +92,26 @@ render() {
                           <Label htmlFor="rating">
                           Rating
                           </Label>
+
+                            <RatingTooltip
+                              max={5}
+                              onChange={(rate) => { this.setDef(rate) } }
+                              ActiveComponent={
+                                <i
+                                  key={"active_1"}
+                                  className="mdi mdi-star text-primary"
+                                  style={this.starStyle}
+                                />
+                              }
+                              InActiveComponent={
+                                <i
+                                  key={"active_01"}
+                                  className="mdi mdi-star-outline text-muted"
+                                  style={this.starStyle}
+                                />
+                              }
+                            />
+
                           <Input
                             id="rating"
                             name="rating"
@@ -220,18 +167,19 @@ render() {
                     <Button
                       type="submit"
                       color="primary"
-                      onClick={()=>this.peticionPost()}
                       className="mr-1 waves-effect waves-light"
                     >
                       Guardar Cambios
                     </Button>
+                    <Link to="/ecommerce-orders">
                     <Button
-                      type="submit"
+                      type="button"
                       color="secondary"
                       className="waves-effect"
                     >
-                      Cancelar
+                      Volver
                     </Button>
+                    </Link>
                   </Form>
                 </CardBody>
               </Card>
@@ -245,5 +193,4 @@ render() {
   );
 };
 };
-
-export default EcommerceAddProduct;
+export default EcommerceEditOrder;

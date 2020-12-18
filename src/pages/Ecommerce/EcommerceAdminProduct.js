@@ -98,6 +98,9 @@ class EcommerceAdmProduct extends Component {
 
     await this.setState({form: producto, id: id});
 
+    localStorage.setItem('formActive',producto);
+    localStorage.setItem('id',id);
+
     (caso==="Editar")?this.setState({modalEditar: true}):
     this.peticionDelete()
 
@@ -190,8 +193,8 @@ class EcommerceAdmProduct extends Component {
                                                                     </Button>
                                                                 </td>
                                                                 <td>
-                                                                    <Link to="#" className="mr-3 text-primary" onClick={()=>this.seleccionarProducto(this.state.data[i], i, 'Editar')}>
-                                                                        <i className="mdi mdi-pencil font-size-18 mr-3" id="edittooltip"></i>
+                                                                <Link to={{pathname: "/ecommerce-edit-product", value: { i }}} className="mr-3 text-primary">
+                                                                         <i className="mdi mdi-pencil font-size-18 mr-3" id="edittooltip"></i>
                                                                         <UncontrolledTooltip placement="top" target="edittooltip">
                                                                             Editar
                                                                         </UncontrolledTooltip >
@@ -255,11 +258,11 @@ class EcommerceAdmProduct extends Component {
                 <Modal isOpen={this.state.modalEditar} role="dialog"  className="exampleModal" tabindex="-1" >
                     <div className="modal-content">
                         <ModalHeader >
-                             Editar Detalle Producto
+                             Editar Producto
                             </ModalHeader >
                         <ModalBody>
-                            <p className="mb-2">ID Producto: <span className="text-primary">{this.state.id}</span></p>
-                            <p className="mb-4">Nombre: <span className="text-primary">{this.state.title}</span></p>
+                            <p className="mb-2">ID Producto: <span className="text-primary">{this.state.form.id}</span></p>
+                            <p className="mb-4">Nombre: <span className="text-primary">{this.state.form.title}</span></p>
 
                             <div className="table-responsive">
                                 <Table className="table table-centered table-nowrap">
@@ -328,7 +331,7 @@ class EcommerceAdmProduct extends Component {
                             </div>
                         </ModalBody>
                         <ModalFooter>
-                            <Button type="button" color="secondary" onClick={()=>this.setState({modalEditar: false})}>Close</Button>
+                            <Button type="button" color="secondary" onClick={()=>this.setState({modalEditar: false})}>Cerrar</Button>
                         </ModalFooter>
                     </div>
                 </Modal>

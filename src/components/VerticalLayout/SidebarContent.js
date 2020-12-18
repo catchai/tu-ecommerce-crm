@@ -67,44 +67,63 @@ const SidebarContent = (props) => {
                  <div id="sidebar-menu">
                 <ul className="metismenu list-unstyled" id="side-menu">
                     <li className="menu-title">{props.t('Menu') }  </li>
+                    <li>
+                        <Link to="/calendar" className="waves-effect">
+                                   <i className="bx bx-calendar"></i><span className="badge badge-pill badge-info float-right"></span>
+                                   <span>{'Calendario'}</span>
+                               </Link>
+                      </li>
                      <li>
                          <Link to="/#" className="waves-effect">
-                                    <i className="bx bx-home-circle"></i><span className="badge badge-pill badge-info float-right">03</span>
-                                    <span>{props.t('Dashboards') }</span>
+                                    <i className="bx bx-money"></i><span className="badge badge-pill badge-info float-right"></span>
+                                    <span>{'Módulo Venta'}</span>
                                 </Link>
                                 <ul className="sub-menu" aria-expanded="false">
-                                    <li><Link to="/dashboard">{props.t('Default') }</Link></li>
-                                    <li><Link to="/dashboard-saas">{props.t('Saas') }</Link></li>
+                                    <li><Link to="dashboard-saas"> {'Controller' }</Link></li>
+                                    <li><Link to="ecommerce-orders">  <span>{props.t('Pedidos') }</span></Link></li>
+                                    <li><Link to="ecommerce-customers">{props.t('Clientes') }</Link></li>
                                 </ul>
                      </li>
 
-                    <li className="menu-title">{props.t('Apps') }</li>
+                     <li>
+                         <Link to="/#" className="waves-effect">
+                                    <i className="bx bx-money"></i><span className="badge badge-pill badge-info float-right"></span>
+                                    <span>{'Módulo Bodega'}</span>
+                                </Link>
+                                <ul className="sub-menu" aria-expanded="false">
+                                    <li><Link to="ecommerce-admin-product">{props.t('Productos') }</Link></li>
+                                    <li><Link to="ecommerce-admin-provider">  <span>{props.t('Proveedores') }</span></Link></li>
+                                    <li><Link to="ecommerce-admin-category">{props.t('Categorías') }</Link></li>
+                                    <li><Link to="ecommerce-admin-flavor">{props.t('Ingredientes') }</Link></li>
+                                    <li><Link to="ecommerce-products">{props.t('Vista Productos') }</Link></li>
+                                </ul>
+                     </li>
+                     <li>
+                         <Link to="/#" className="waves-effect">
+                                    <i className="bx bx-money"></i><span className="badge badge-pill badge-info float-right"></span>
+                                    <span>{'Módulo Delivery'}</span>
+                                </Link>
+                                <ul className="sub-menu" aria-expanded="false">
+                                    <li><Link to="/ecommerce-status-buy">  {'Estado de Compra' }</Link></li>
+                                    <li><Link to="ecommerce-feedback-customer">  <span>{props.t('Satisfacción del Cliente') }</span></Link></li>
+                                </ul>
+                     </li>
+
+                    <li className="menu-title">{'Herramientas'}</li>
+
 
                     <li>
                         <Link to="/#" className="has-arrow waves-effect">
-                            <i className="bx bx-store"></i>
-                            <span>{props.t('Ecommerce') }</span>
+                            <i className="bx bx-image-add"></i>
+                            <span>{props.t('Medios') }</span>
                         </Link>
                         <ul className="sub-menu" aria-expanded="false">
-                            <li><Link to="ecommerce-orders">{props.t('Gestión de Ventas') }</Link></li>
-                            <li><Link to="ecommerce-admin-ingredientes">{props.t('Gestión de Clientes') }</Link></li>
-                            <li><Link to="ecommerce-admin-product">{props.t('Gestión de Productos') }</Link></li>
-                            <li><Link to="ecommerce-admin-categorias">{props.t('Gestión de Categorías') }</Link></li>
-                            <li><Link to="ecommerce-admin-ingredientes">{props.t('Gestión de Ingredientes') }</Link></li>
-                            <li><Link to="ecommerce-products">{props.t('Vista Productos') }</Link></li>
-                            <li><Link to="ecommerce-shops">{props.t('Gestión de Tiendas') }</Link></li>
+                            <li><Link to="form-uploads"> {props.t('Gestión de Imágenes') }</Link></li>
+                            <li><Link to="ui-image-cropper"> {props.t('Editor de Imágenes') }</Link></li>
                         </ul>
                     </li>
-                    <li>
-                        <Link to="/#" className="has-arrow waves-effect">
-                            <i className="bx bx-receipt"></i>
-                            <span>{props.t('Facturas')}</span>
-                        </Link>
-                        <ul className="sub-menu" aria-expanded="false">
-                            <li><Link to="invoices-list">{props.t('Lista Facturas')}</Link></li>
-                            <li><Link to="invoices-detail">{props.t('Detalle de Facturas')}</Link></li>
-                        </ul>
-                    </li>
+
+
 
 
                     <li>

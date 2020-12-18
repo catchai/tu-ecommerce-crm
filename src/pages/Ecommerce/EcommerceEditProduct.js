@@ -22,15 +22,19 @@ import Breadcrumbs from "../../components/Common/Breadcrumb";
 import * as firebase from "firebase";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
+// Rating Plugin
+import Rating from "react-rating";
+import RatingTooltip from "react-rating-tooltip";
 
-class EcommerceAddProduct extends Component {
+class EcommerceEditProduct extends Component {
 
-
-
+  starStyle = {};
 
     // Paso1 : Definicion
     state = {
         data: [],
+        def: '',
+        customize: '',
         modalInsertar: false,
         modalEditar: false,
         form: {
@@ -58,11 +62,7 @@ class EcommerceAddProduct extends Component {
           count = 0;
           peticionGet = () => {
 
-            firebase.database().ref(`data/products`).once('value').then((snapshot) => {
-
-                this.count  = (snapshot.numChildren()) + 1;
-            });
-
+            console.log(localStorage.getItem('formActive'));
           };
 
           // Se carga al incio del componente
@@ -106,9 +106,17 @@ class EcommerceAddProduct extends Component {
 
        };
 
+       setDef=e=>{
+          this.setState({def: e});
+
+          this.setState({
+            form:{...this.state.form,
+                  categories: e
+            }});
+       };
+
 
 render() {
-
 
   let catego = [];
   firebase.database().ref("data/category").on("child_added", (snap) => {
@@ -131,7 +139,7 @@ render() {
             <Col xs="12">
               <Card>
                 <CardBody>
-                  <CardTitle>Información Básica</CardTitle>
+                  <CardTitle>Edición Producto</CardTitle>
                   <CardSubtitle className="mb-3">
                     Completar toda la información requerida
                   </CardSubtitle>
@@ -165,6 +173,26 @@ render() {
                           <Label htmlFor="rating">
                           Rating
                           </Label>
+
+                            <RatingTooltip
+                              max={5}
+                              onChange={(rate) => { this.setDef(rate) } }
+                              ActiveComponent={
+                                <i
+                                  key={"active_1"}
+                                  className="mdi mdi-star text-primary"
+                                  style={this.starStyle}
+                                />
+                              }
+                              InActiveComponent={
+                                <i
+                                  key={"active_01"}
+                                  className="mdi mdi-star-outline text-muted"
+                                  style={this.starStyle}
+                                />
+                              }
+                            />
+
                           <Input
                             id="rating"
                             name="rating"
@@ -246,4 +274,4 @@ render() {
 };
 };
 
-export default EcommerceAddProduct;
+export default EcommerceEditProduct;

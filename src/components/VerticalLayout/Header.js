@@ -140,7 +140,7 @@ function tToggle()
 
 
 
-            
+
 
               <div className="dropdown d-none d-lg-inline-block ml-1">
                 <button type="button" onClick={() => { toggleFullscreen(); }} className="btn header-item noti-icon waves-effect" data-toggle="fullscreen">
@@ -151,11 +151,6 @@ function tToggle()
               <NotificationDropdown />
               <ProfileMenu />
 
-              <div onClick={() => { props.showRightSidebarAction(!props.showRightSidebar); }} className="dropdown d-inline-block">
-                <button type="button" className="btn header-item noti-icon right-bar-toggle waves-effect">
-                  <i className="bx bx-cog bx-spin"></i>
-                </button>
-              </div>
 
             </div>
           </div>

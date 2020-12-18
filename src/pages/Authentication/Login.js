@@ -85,10 +85,14 @@ import logo from "../../assets/images/logo.svg";
                                         </div>
                                     </CardBody>
                                 </Card>
-                                <div className="mt-5 text-center">
-                                    <p>No tienes cuenta ? <Link to="register" className="font-weight-medium text-primary"> Registrate Ahora</Link> </p>
-                                    <p>© {new Date().getFullYear()} Tu-Ecommerce. Desarrollado <i className="mdi mdi-heart text-danger"></i> por Eserp</p>
-                                </div>
+                                {
+                                  /**
+                                 <div className="mt-5 text-center">
+                                     <p>No tienes cuenta ? <Link to="register" className="font-weight-medium text-primary"> Registrate Ahora</Link> </p>
+                                     <p>© new Date().getFullYear() Tu-Ecommerce. Desarrollado <i className="mdi mdi-heart text-danger"></i> por Eserp</p>
+                                 </div>
+                                 **/
+                               }
                             </Col>
                         </Row>
                     </Container>
