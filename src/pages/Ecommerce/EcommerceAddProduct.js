@@ -56,6 +56,8 @@ class EcommerceAddProduct extends Component {
         id: 0
       };
           count = 0;
+          total = 0;
+          qtotal = [];
           peticionGet = () => {
 
             firebase.database().ref(`data/products`).once('value').then((snapshot) => {
@@ -71,9 +73,10 @@ class EcommerceAddProduct extends Component {
            }
 
 
+
         peticionPost=()=>{
            this.state.form.id = this.count;
-           firebase.database().ref(`data/products`).push().set(this.state.form);
+           firebase.database().ref(`data/products`).child(this.count).set(this.state.form).push();
            this.setState({modalInsertar: false});
 
        };
