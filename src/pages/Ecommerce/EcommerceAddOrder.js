@@ -1,5 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
-import AsyncSelect from 'react-select/async';
+import React, { Component  } from 'react';
 import { Link } from "react-router-dom";
 import {
   Container,
@@ -15,13 +14,10 @@ import {
   Button,
   Label,
 } from "reactstrap";
-import Select from "react-select";
-import Dropzone from "react-dropzone";
+import Select from "react-select"; 
 import Breadcrumbs from "../../components/Common/Breadcrumb";
-// import  firebase from "../../firebase";
 import * as firebase from "firebase";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 
 class EcommerceAddOrder extends Component {
 

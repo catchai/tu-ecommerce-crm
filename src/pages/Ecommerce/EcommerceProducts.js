@@ -7,32 +7,17 @@ import {
   Col,
   Card,
   CardBody,
-  CardTitle,
-  Form,
-  Label,
-  Input,
-  Nav,
-  NavItem,
-  NavLink,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
 } from "reactstrap";
-import classnames from "classnames";
 
 //Import Star Ratings
 import StarRatings from "react-star-ratings";
 
-// RangeSlider
-import Nouislider from "nouislider-react";
 import "nouislider/distribute/nouislider.css";
 
 import * as firebase from "firebase";
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb";
-
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 
 class EcommerceProducts extends Component {
 
@@ -40,8 +25,6 @@ class EcommerceProducts extends Component {
     // Paso1 : Definicion
     state = {
         data: [],
-        modalInsertar: false,
-        modalEditar: false,
         form: {
           calories: '',
           categories: '',

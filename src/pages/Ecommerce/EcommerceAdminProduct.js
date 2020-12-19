@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Container, Row, Col, Input, Button, Card, CardBody, Table, Label, Badge, Modal, ModalHeader, ModalBody, ModalFooter, UncontrolledTooltip, Pagination, PaginationItem, PaginationLink } from "reactstrap";
-// import  firebase from "../../firebase";
+import { Container, Row, Col, Input, Button, Card, CardBody, Table, Label,  Modal, ModalHeader, ModalBody, ModalFooter, UncontrolledTooltip  } from "reactstrap";
+
 import * as firebase from "firebase";
 import Breadcrumbs from '../../components/Common/Breadcrumb';
 import img4 from "../../assets/images/product/img-4.png";
@@ -16,7 +16,7 @@ class EcommerceAdmProduct extends Component {
       modalEditar: false,
       form: {
         calories: '',
-        categories: '',
+        category: '',
         combo: '',
         discount: '',
         discountprice: '',
@@ -39,6 +39,8 @@ class EcommerceAdmProduct extends Component {
 
 
     peticionGet = () => {
+
+      localStorage.removeItem('id');
       firebase.database().ref("data").child("products").on("value", (prdto) => {
         if (prdto.val() !== null) {
           this.setState({ ...this.state.data, data: prdto.val() });
@@ -75,15 +77,6 @@ class EcommerceAdmProduct extends Component {
     }
 
 
-    peticionPut=()=>{
-    firebase.database().ref(`data/products/${this.state.id}`).set(
-     this.state.form,
-     error=>{
-       if(error)console.log(error)
-     });
-     this.setState({modalEditar: false});
-    }
-
     peticionDelete=()=>{
         if(window.confirm(`Estás seguro que deseas eliminar el producto ${this.state.form && this.state.form.title}?`))
         {
@@ -94,11 +87,10 @@ class EcommerceAdmProduct extends Component {
         }
     }
 
-    seleccionarProducto=async(producto, id, caso)=>{
+    seleccionarProducto=(producto, id, caso)=>{
 
-    await this.setState({form: producto, id: id});
+    this.setState({form: producto, id: id});
 
-    localStorage.setItem('formActive',producto);
     localStorage.setItem('id',id);
 
     (caso==="Editar")?this.setState({modalEditar: true}):
@@ -158,7 +150,6 @@ class EcommerceAdmProduct extends Component {
                                                 </thead>
                                                 <tbody>
                                                       { Object.keys(this.state.data).map(i=>{
-                                                        console.log(i);
 
                                                           return  <tr key={"_product_" + i}>
                                                                 <td>
@@ -193,7 +184,8 @@ class EcommerceAdmProduct extends Component {
                                                                     </Button>
                                                                 </td>
                                                                 <td>
-                                                                <Link to={{pathname: "/ecommerce-edit-product", value: { i }}} className="mr-3 text-primary">
+                                                                <Link to={`/ecommerce-edit-product/${this.state.data[i].id}`} onClick={()=>this.seleccionarProducto(this.state.data[i], i, 'Editar')}
+                                                               className="mr-3 text-primary">
                                                                          <i className="mdi mdi-pencil font-size-18 mr-3" id="edittooltip"></i>
                                                                         <UncontrolledTooltip placement="top" target="edittooltip">
                                                                             Editar
@@ -255,86 +247,6 @@ class EcommerceAdmProduct extends Component {
 
 
 
-                <Modal isOpen={this.state.modalEditar} role="dialog"  className="exampleModal" tabindex="-1" >
-                    <div className="modal-content">
-                        <ModalHeader >
-                             Editar Producto
-                            </ModalHeader >
-                        <ModalBody>
-                            <p className="mb-2">ID Producto: <span className="text-primary">{this.state.form.id}</span></p>
-                            <p className="mb-4">Nombre: <span className="text-primary">{this.state.form.title}</span></p>
-
-                            <div className="table-responsive">
-                                <Table className="table table-centered table-nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Product</th>
-                                            <th scope="col">Product Name</th>
-                                            <th scope="col">Price</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">
-                                                <div>
-                                                    <img src={img7} alt="" className="avatar-sm" />
-                                                </div>
-                                            </th>
-                                            <td>
-                                                <div>
-                                                    <h5 className="text-truncate font-size-14">Wireless Headphone (Black)</h5>
-                                                    <p className="text-muted mb-0">$ 225 x 1</p>
-                                                </div>
-                                            </td>
-                                            <td>$ 255</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">
-                                                <div>
-                                                    <img src={img4} alt="" className="avatar-sm" />
-                                                </div>
-                                            </th>
-                                            <td>
-                                                <div>
-                                                    <h5 className="text-truncate font-size-14">Hoodie (Blue)</h5>
-                                                    <p className="text-muted mb-0">$ 145 x 1</p>
-                                                </div>
-                                            </td>
-                                            <td>$ 145</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2">
-                                                <h6 className="m-0 text-right">Sub Total:</h6>
-                                            </td>
-                                            <td>
-                                                $ 400
-                                                </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2">
-                                                <h6 className="m-0 text-right">Shipping:</h6>
-                                            </td>
-                                            <td>
-                                                Free
-                                                </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2">
-                                                <h6 className="m-0 text-right">Total:</h6>
-                                            </td>
-                                            <td>
-                                                $ 400
-                                                </td>
-                                        </tr>
-                                    </tbody>
-                                </Table>
-                            </div>
-                        </ModalBody>
-                        <ModalFooter>
-                            <Button type="button" color="secondary" onClick={()=>this.setState({modalEditar: false})}>Cerrar</Button>
-                        </ModalFooter>
-                    </div>
-                </Modal>
             </React.Fragment>
           );
     }

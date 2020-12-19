@@ -79,9 +79,9 @@ const SidebarContent = (props) => {
                                     <span>{'Módulo Venta'}</span>
                                 </Link>
                                 <ul className="sub-menu" aria-expanded="false">
-                                    <li><Link to="dashboard-saas"> {'Controller' }</Link></li>
-                                    <li><Link to="ecommerce-orders">  <span>{props.t('Pedidos') }</span></Link></li>
-                                    <li><Link to="ecommerce-customers">{props.t('Clientes') }</Link></li>
+                                    <li><Link to="/dashboard-saas"> {'Controller' }</Link></li>
+                                    <li><Link to="/ecommerce-orders">  <span>{props.t('Pedidos') }</span></Link></li>
+                                    <li><Link to="/ecommerce-customers">{props.t('Clientes') }</Link></li>
                                 </ul>
                      </li>
 
@@ -91,11 +91,11 @@ const SidebarContent = (props) => {
                                     <span>{'Módulo Bodega'}</span>
                                 </Link>
                                 <ul className="sub-menu" aria-expanded="false">
-                                    <li><Link to="ecommerce-admin-product">{props.t('Productos') }</Link></li>
-                                    <li><Link to="ecommerce-admin-provider">  <span>{props.t('Proveedores') }</span></Link></li>
-                                    <li><Link to="ecommerce-admin-category">{props.t('Categorías') }</Link></li>
-                                    <li><Link to="ecommerce-admin-flavor">{props.t('Ingredientes') }</Link></li>
-                                    <li><Link to="ecommerce-products">{props.t('Vista Productos') }</Link></li>
+                                    <li><Link to="/ecommerce-admin-product">{props.t('Productos') }</Link></li>
+                                    <li><Link to="/ecommerce-admin-provider">  <span>{props.t('Proveedores') }</span></Link></li>
+                                    <li><Link to="/ecommerce-admin-category">{props.t('Categorías') }</Link></li>
+                                    <li><Link to="/ecommerce-admin-flavor">{props.t('Ingredientes') }</Link></li>
+                                    <li><Link to="/ecommerce-products">{props.t('Vista Productos') }</Link></li>
                                 </ul>
                      </li>
                      <li>
@@ -105,7 +105,7 @@ const SidebarContent = (props) => {
                                 </Link>
                                 <ul className="sub-menu" aria-expanded="false">
                                     <li><Link to="/ecommerce-status-buy">  {'Estado de Compra' }</Link></li>
-                                    <li><Link to="ecommerce-feedback-customer">  <span>{props.t('Satisfacción del Cliente') }</span></Link></li>
+                                    <li><Link to="/ecommerce-feedback-customer">  <span>{props.t('Satisfacción del Cliente') }</span></Link></li>
                                 </ul>
                      </li>
 
@@ -118,8 +118,8 @@ const SidebarContent = (props) => {
                             <span>{props.t('Medios') }</span>
                         </Link>
                         <ul className="sub-menu" aria-expanded="false">
-                            <li><Link to="form-uploads"> {props.t('Gestión de Imágenes') }</Link></li>
-                            <li><Link to="ui-image-cropper"> {props.t('Editor de Imágenes') }</Link></li>
+                            <li><Link to="/form-uploads"> {props.t('Gestión de Imágenes') }</Link></li>
+                            <li><Link to="/ui-image-cropper"> {props.t('Editor de Imágenes') }</Link></li>
                         </ul>
                     </li>
 

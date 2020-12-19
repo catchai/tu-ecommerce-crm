@@ -10,10 +10,7 @@ import CardWelcome from "./card-welcome";
 import MiniWidget from "./mini-widget";
 import Earning from "./earning";
 import SalesAnalytics from "./sales-analytics";
-import TotalSellingProduct from "./total-selling-product";
 import InvoicesList from "../Invoices/invoices-list";
-import Tasks from "./tasks";
-import ChatBox from "./chat-box";
 
 class Dashboard extends Component {
     constructor(props) {

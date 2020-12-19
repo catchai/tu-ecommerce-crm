@@ -1,6 +1,5 @@
-import React, { Component, useState, useEffect } from 'react';
-import AsyncSelect from 'react-select/async';
-import { Link } from "react-router-dom";
+import React, { Component  } from 'react';
+import { Link, useParams , useHistory } from "react-router-dom";
 import {
   Container,
   Row,
@@ -16,14 +15,10 @@ import {
   Label,
 } from "reactstrap";
 import Select from "react-select";
-import Dropzone from "react-dropzone";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
-// import  firebase from "../../firebase";
 import * as firebase from "firebase";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 // Rating Plugin
-import Rating from "react-rating";
 import RatingTooltip from "react-rating-tooltip";
 
 class EcommerceEditProduct extends Component {
@@ -33,13 +28,11 @@ class EcommerceEditProduct extends Component {
     // Paso1 : Definicion
     state = {
         data: [],
-        def: '',
-        customize: '',
         modalInsertar: false,
         modalEditar: false,
         form: {
           calories: '',
-          categories: '',
+          category: '',
           combo: '',
           discount: '',
           discountprice: '',
@@ -59,31 +52,49 @@ class EcommerceEditProduct extends Component {
         },
         id: 0
       };
-          count = 0;
-          peticionGet = () => {
-
-            console.log(localStorage.getItem('formActive'));
-          };
-
-          // Se carga al incio del componente
-          componentDidMount() {
-             this.peticionGet();
-           }
 
 
-        peticionPost=()=>{
-           this.state.form.id = this.count;
-           firebase.database().ref(`data/products`).push().set(this.state.form);
-           this.setState({modalInsertar: false});
+      peticionGet = () => {
 
-       };
+        let idx = localStorage.getItem('id');
+        alert('dentro de editar idx:'+idx);
+        this.setState({id:idx});
+        firebase.database().ref(`data/products/${idx}`).once("value").then((prdto) => {
+
+          if (prdto.val() !== null) {
+            this.setState({ ...this.state.data.form, form: prdto.val() });
+          } else {
+            this.setState({ form: [] });
+          }
+
+
+
+        });
+      };
+
+
+
+      // Se carga al incio del componente
+      componentDidMount() {
+         this.peticionGet();
+       }
+
+
+      peticionPut=()=>{
+      firebase.database().ref(`data/products/${this.state.id}`).set(
+       this.state.form,
+       error=>{
+         if(error)console.log(error)
+       });
+       this.setState({modalEditar: false});
+      }
 
        onSelectCategoryChange=e=>{
-           this.setState({categories: e});
+           this.setState({category: e});
 
            this.setState({
              form:{...this.state.form,
-                   categories: e
+                   category: e
              }});
 
         };
@@ -97,6 +108,15 @@ class EcommerceEditProduct extends Component {
               }});
         };
 
+        onRatingChange=e=>{
+             this.setState({rating: e});
+
+             this.setState({
+               form:{...this.state.form,
+                     rating: e
+               }});
+         };
+
 
        handleChange=e=>{
           this.setState({
@@ -106,17 +126,10 @@ class EcommerceEditProduct extends Component {
 
        };
 
-       setDef=e=>{
-          this.setState({def: e});
-
-          this.setState({
-            form:{...this.state.form,
-                  categories: e
-            }});
-       };
-
 
 render() {
+
+
 
   let catego = [];
   firebase.database().ref("data/category").on("child_added", (snap) => {
@@ -128,13 +141,15 @@ render() {
     flavors.push(snap.val());
   });
 
+
   return (
 
     <React.Fragment>
       <div className="page-content">
+
         <Container fluid>
           {/* Render Breadcrumb */}
-          <Breadcrumbs title="Comercio" breadcrumbItem="Agregar Producto" />
+          <Breadcrumbs title="Comercio" breadcrumbItem="Editar Producto" />
           <Row>
             <Col xs="12">
               <Card>
@@ -152,6 +167,7 @@ render() {
                           <Input
                             id="title"
                             name="title"
+                            value={this.state.form.title}
                             type="text"
                             className="form-control"
                             onChange={this.handleChange}
@@ -164,6 +180,7 @@ render() {
                           <Input
                             id="discount"
                             name="discount"
+                            value={this.state.form.discount}
                             type="text"
                             className="form-control"
                               onChange={this.handleChange}
@@ -176,7 +193,8 @@ render() {
 
                             <RatingTooltip
                               max={5}
-                              onChange={(rate) => { this.setDef(rate) } }
+                              value={this.state.form.rating}
+                              onChange={this.onRatingChange}
                               ActiveComponent={
                                 <i
                                   key={"active_1"}
@@ -193,13 +211,7 @@ render() {
                               }
                             />
 
-                          <Input
-                            id="rating"
-                            name="rating"
-                            type="text"
-                            className="form-control"
-                              onChange={this.handleChange}
-                          />
+
                         </FormGroup>
                         <FormGroup>
                           <Label htmlFor="price">Precio</Label>
@@ -207,6 +219,7 @@ render() {
                             id="price"
                             name="price"
                             type="text"
+                            value={this.state.form.price}
                             className="form-control"
                               onChange={this.handleChange}
                           />
@@ -221,14 +234,14 @@ render() {
                         <Label htmlFor="text">
                         Categoría
                         </Label>
-                         <Select  options={catego}  value={this.state.categories} onChange={this.onSelectCategoryChange} />
+                         <Select  options={catego}  value={this.state.form.category} onChange={this.onSelectCategoryChange} />
 
                         <FormGroup>
                         </FormGroup>
                         <Label htmlFor="text">
                           Ingredientes
                         </Label>
-                        <Select options={flavors}  value={this.state.flavors} onChange={this.onSelectFlavorsChange}/>
+                        <Select options={flavors}  value={this.state.form.flavors} onChange={this.onSelectFlavorsChange}/>
 
                         <FormGroup>
                           <Label htmlFor="text">
@@ -238,6 +251,7 @@ render() {
                             className="form-control"
                             id="text"
                             name="text"
+                            value={this.state.form.text}
                             rows="5"
                             onChange={this.handleChange}
                           ></textarea>
@@ -248,18 +262,21 @@ render() {
                     <Button
                       type="submit"
                       color="primary"
-                      onClick={()=>this.peticionPost()}
+                      onClick={()=>this.peticionPut()}
                       className="mr-1 waves-effect waves-light"
                     >
                       Guardar Cambios
                     </Button>
+                    <Link to="/ecommerce-admin-product">
                     <Button
-                      type="submit"
+                      type="button"
                       color="secondary"
                       className="waves-effect"
+
                     >
                       Cancelar
                     </Button>
+                    </Link>
                   </Form>
                 </CardBody>
               </Card>

@@ -152,7 +152,7 @@ const userRoutes = [
 
 	//Ecommerce
 	{ path: "/ecommerce-products", component: EcommerceProducts },
-	{ path: "/ecommerce-product-detail", component: EcommerceProductDetail },
+	{ path: "/ecommerce-product-detail/:id", component: EcommerceProductDetail },
 	{ path: "/ecommerce-orders", component: EcommerceOrders },
 	{ path: "/ecommerce-add-order", component: EcommerceAddOrder },
 	{ path: "/ecommerce-edit-order/:id", component: EcommerceEditOrder },

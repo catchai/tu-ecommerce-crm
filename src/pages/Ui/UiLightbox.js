@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Row, Col, Card, CardBody, CardTitle, CardSubtitle, CardText, Button, Modal, ModalHeader, ModalBody,Container } from "reactstrap";
+import { Row, Col, Card, CardBody, CardTitle, CardSubtitle, Button, Modal, ModalHeader, ModalBody,Container } from "reactstrap";
 import { Link } from "react-router-dom";
 
 //Lightbox

@@ -23,12 +23,6 @@ const FormUpload = (props) => {
   let folders = [];
 
 
-  const handleChange = (e) => {
-    if (e.target.files[0]) {
-      setImage(e.target.files[0]);
-    }
-  };
-
 ///   <<<<<<<<<<<<<<<<<<<<< adherido
 
   async function loadPicture(){
@@ -57,30 +51,7 @@ const FormUpload = (props) => {
 
   }
 
-    /**
-    Paginacion
-    **/
-    async function pageTokenExample(){
 
-      var storage = firebase.storage().ref();
-
-      // Create a reference under which you want to list
-      var listRef = storage.child('productos');
-      // Fetch the first page of 100.
-      var firstPage = await listRef.list({ maxResults: 100});
-      // Use the result.
-      // processItems(firstPage.items)
-      // processPrefixes(firstPage.prefixes)
-      // Fetch the second page if there are more elements.
-      if (firstPage.nextPageToken) {
-        var secondPage = await listRef.list({
-        maxResults: 100,
-        pageToken: firstPage.nextPageToken,
-      });
-      // processItems(secondPage.items)
-      // processPrefixes(secondPage.prefixes)
-      }
-    }
 
     function handleAcceptedFolder(folder)
     {

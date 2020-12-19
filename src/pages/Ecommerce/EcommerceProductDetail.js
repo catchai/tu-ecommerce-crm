@@ -22,13 +22,8 @@ import classnames from "classnames";
 import StarRatings from "react-star-ratings";
 
 //Import Product Images
-import img4 from "../../assets/images/product/img-4.png";
-import img6 from "../../assets/images/product/img-6.png";
 import img7 from "../../assets/images/product/img-7.png";
-import img8 from "../../assets/images/product/img-8.png";
-import avatar2 from "../../assets/images/users/avatar-2.jpg";
-import avatar4 from "../../assets/images/users/avatar-4.jpg";
-import avatar5 from "../../assets/images/users/avatar-5.jpg";
+import img8 from "../../assets/images/product/img-8.png"; 
 
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb";

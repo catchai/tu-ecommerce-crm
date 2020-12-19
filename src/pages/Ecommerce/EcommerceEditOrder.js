@@ -1,6 +1,5 @@
-import React, { Component, useState, useEffect } from 'react';
-import AsyncSelect from 'react-select/async';
-import { Link, useLocation } from "react-router-dom";
+import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 import {
   Container,
   Row,
@@ -16,14 +15,10 @@ import {
   Label,
 } from "reactstrap";
 import Select from "react-select";
-import Dropzone from "react-dropzone";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
-// import  firebase from "../../firebase";
 import * as firebase from "firebase";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
-// Rating Plugin
-import Rating from "react-rating";
+// Rating Plugin 
 import RatingTooltip from "react-rating-tooltip";
 
 class  EcommerceEditOrder extends Component {

@@ -1,12 +1,9 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import { Container, Row, Col, Input, Button, Card, CardBody, Table, Label, Badge, Modal, ModalHeader, ModalBody, ModalFooter, UncontrolledTooltip, Pagination, PaginationItem, PaginationLink } from "reactstrap";
+import { Container, Row, Col, Input, Button, Card, CardBody, Table, Label, Badge, UncontrolledTooltip} from "reactstrap";
 
 //Import Breadcrumb
-import Breadcrumbs from '../../components/Common/Breadcrumb';
-
-import img4 from "../../assets/images/product/img-4.png";
-import img7 from "../../assets/images/product/img-7.png";
+import Breadcrumbs from '../../components/Common/Breadcrumb'; 
 
 import * as firebase from "firebase";
 import "bootstrap/dist/css/bootstrap.min.css";
