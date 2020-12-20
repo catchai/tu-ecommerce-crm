@@ -52,7 +52,7 @@ class Layout extends Component {
     let currentage = this.capitalizeFirstLetter(this.props.location.pathname);
 
     document.title =
-      currentage + " | Skote - Responsive Bootstrap 4 Admin Dashboard";
+      currentage + " | Tu-Ecommerce - Tu negocio en todos lados";
     if (this.props.leftSideBarTheme) {
       this.props.changeSidebarTheme(this.props.leftSideBarTheme);
     }

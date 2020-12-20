@@ -15,7 +15,7 @@ import avatar from '../../assets/images/users/avatar-1.jpg';
 // actions
 import { editProfile } from '../../store/actions';
 
-const UserProfile = (props) => { 
+const UserProfile = (props) => {
 
     const [email, setemail] = useState("");
     const [name, setname] = useState("");
@@ -26,7 +26,7 @@ const UserProfile = (props) => {
            {
              const obj = JSON.parse(localStorage.getItem("authUser"));
              if(process.env.REACT_APP_DEFAULTAUTH === 'firebase')
-             { 
+             {
                 setname(obj.displayName);
                 setemail(obj.email);
                 setidx(obj.uid);
@@ -36,7 +36,7 @@ const UserProfile = (props) => {
                 setname(obj.username);
                 setemail(obj.email);
                 setidx(obj.uid);
-             }               
+             }
            }
       },[props.success]);
 
@@ -90,7 +90,7 @@ const UserProfile = (props) => {
                                          <Button type="submit" color="danger">Edit UserName</Button>
                                     </div>
                                </AvForm>
-                            
+
                             </CardBody>
                         </Card>
                     </Container>
@@ -98,11 +98,10 @@ const UserProfile = (props) => {
             </React.Fragment>
            );
         }
-            
+
 const mapStatetoProps = state => {
     const { error,success } = state.Profile;
     return { error,success };
 }
 
 export default withRouter(connect(mapStatetoProps, { editProfile })(UserProfile));
-

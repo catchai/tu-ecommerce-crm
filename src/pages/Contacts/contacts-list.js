@@ -13,77 +13,84 @@ import avatar5 from "../../assets/images/users/avatar-5.jpg";
 import avatar7 from "../../assets/images/users/avatar-7.jpg";
 
 const ContactsList = (props) => {
-       const users = [
-            {
-                id: 1, img: "Null", name: "David McHenry", designation: "UI/UX Designer", email: "david@skote.com", projects: "125",
-                skills: [
-                    { name: "Photoshop" },
-                    { name: "illustrator" }
-                ]
-            },
-            {
-                id: 2, img: avatar2, name: "Frank Kirk", designation: "Frontend Developer", email: "frank@skote.com", projects: "132",
-                skills: [
-                    { name: "Html" },
-                    { name: "Css" },
-                    { name: "2 + more" },
-                ]
-            },
-            {
-                id: 3, img: avatar3, name: "Rafael Morales", designation: "Backend Developer", email: "Rafael@skote.com", projects: "1112",
-                skills: [
-                    { name: "Php" },
-                    { name: "Java" },
-                    { name: "Python" },
-                ]
-            },
-            {
-                id: 4, img: "Null", name: "Mark Ellison", designation: "Full Stack Developer", email: "mark@skote.com", projects: "121",
-                skills: [
-                    { name: "Ruby" },
-                    { name: "Php" },
-                    { name: "2 + more" },
-                ]
-            },
-            {
-                id: 5, img: avatar4, name: "Minnie Walter", designation: "Frontend Developer", email: "minnie@skote.com", projects: "145",
-                skills: [
-                    { name: "Html" },
-                    { name: "Css" },
-                    { name: "2 + more" },
-                ]
-            },
-            {
-                id: 6, img: avatar5, name: "Shirley Smith", designation: "UI/UX Designer", email: "shirley@skote.com", projects: "136",
-                skills: [
-                    { name: "Photoshop" },
-                    { name: "UI/UX Designer" }
-                ]
-            },
-            {
-                id: 7, img: "Null", name: "John Santiago", designation: "Full Stack Developer", email: "john@skote.com", projects: "125",
-                skills: [
-                    { name: "Ruby" },
-                    { name: "Php" },
-                    { name: "2 + more" },
-                ]
-            },
-            {
-                id: 8, img: avatar7, name: "Colin Melton", designation: "Backend Developer", email: "colin@skote.com", projects: "136",
-                skills: [
-                    { name: "Php" },
-                    { name: "Java" },
-                    { name: "Python" },
-                ]
-            },
-        ];
+
+
+
+/**
+
+     {
+         id: 1, img: "Null", name: "David McHenry", designation: "UI/UX Designer", email: "david@skote.com", projects: "125",
+         skills: [
+             { name: "Photoshop" },
+             { name: "illustrator" }
+         ]
+     },
+     {
+         id: 2, img: avatar2, name: "Frank Kirk", designation: "Frontend Developer", email: "frank@skote.com", projects: "132",
+         skills: [
+             { name: "Html" },
+             { name: "Css" },
+             { name: "2 + more" },
+         ]
+     },
+     {
+         id: 3, img: avatar3, name: "Rafael Morales", designation: "Backend Developer", email: "Rafael@skote.com", projects: "1112",
+         skills: [
+             { name: "Php" },
+             { name: "Java" },
+             { name: "Python" },
+         ]
+     },
+     {
+         id: 4, img: "Null", name: "Mark Ellison", designation: "Full Stack Developer", email: "mark@skote.com", projects: "121",
+         skills: [
+             { name: "Ruby" },
+             { name: "Php" },
+             { name: "2 + more" },
+         ]
+     },
+     {
+         id: 5, img: avatar4, name: "Minnie Walter", designation: "Frontend Developer", email: "minnie@skote.com", projects: "145",
+         skills: [
+             { name: "Html" },
+             { name: "Css" },
+             { name: "2 + more" },
+         ]
+     },
+     {
+         id: 6, img: avatar5, name: "Shirley Smith", designation: "UI/UX Designer", email: "shirley@skote.com", projects: "136",
+         skills: [
+             { name: "Photoshop" },
+             { name: "UI/UX Designer" }
+         ]
+     },
+     {
+         id: 7, img: "Null", name: "John Santiago", designation: "Full Stack Developer", email: "john@skote.com", projects: "125",
+         skills: [
+             { name: "Ruby" },
+             { name: "Php" },
+             { name: "2 + more" },
+         ]
+     },
+     {
+         id: 8, img: avatar7, name: "Colin Melton", designation: "Backend Developer", email: "colin@skote.com", projects: "136",
+         skills: [
+             { name: "Php" },
+             { name: "Java" },
+             { name: "Python" },
+         ]
+     },
+
+**/
+
+       const users = [  ];
     return (
              <React.Fragment>
                 <div className="page-content">
                     <Container fluid>
 
                         {/* Render Breadcrumbs */}
-                        <Breadcrumbs title="Contacts" breadcrumbItem="Users List" />
+                        <Breadcrumbs title="Contactos" breadcrumbItem="Lista de Usuarios" />
 
                         <Row>
                             <Col lg="12">
@@ -94,10 +101,11 @@ const ContactsList = (props) => {
                                                 <thead className="thead-light">
                                                     <tr>
                                                         <th scope="col" style={{ width: "70px" }}>#</th>
-                                                        <th scope="col">Name</th>
-                                                        <th scope="col">Email</th>
-                                                        <th scope="col">Tags</th>
-                                                        <th scope="col">Projects</th>
+                                                        <th scope="col">Identificador</th>
+                                                        <th scope="col">Proveedor</th>
+                                                        <th scope="col">Fecha de creación</th>
+                                                        <th scope="col">Inicio de sesión</th>
+                                                        <th scope="col">UID de usuario</th>
                                                         <th scope="col">Action</th>
                                                     </tr>
                                                 </thead>
@@ -210,5 +218,5 @@ const ContactsList = (props) => {
             </React.Fragment>
           );
     }
-        
+
 export default ContactsList;

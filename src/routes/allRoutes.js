@@ -56,8 +56,10 @@ import ForgetPwd1 from "../pages/AuthenticationInner/ForgetPassword";
 import LockScreen from "../pages/AuthenticationInner/auth-lock-screen";
 
   // Dashboard
-import Dashboard from "../pages/Dashboard/index";
-import DashboardSaas from "../pages/Dashboard-saas/index";
+import Home from "../pages/Home/index";
+//import DashboardSaas from "../pages/Dashboard-saas/index";
+import Controller from "../pages/Controller/index";
+import Resumen from "../pages/Resumen/index";
 
 
 // Charts
@@ -138,14 +140,20 @@ import ContactsProfile from "../pages/Contacts/contacts-profile";
 
 const userRoutes = [
 
-	{ path: "/dashboard", component: Dashboard },
-	{ path: "/dashboard-saas", component: DashboardSaas },
+
+	// //calendar
+
+	{ path: "/home", component: Home },
+	{ path: "/controller", component: Controller },
+	{ path: "/resumen", component: Resumen },
+
+
+	{ path: "/calendar", component: Calendar },
 
 	//chat
 	{ path: "/chat", component: Chat },
 
-	// //calendar
-	{ path: "/calendar", component: Calendar },
+
 
 	// //profile
 	{ path: "/profile", component: UserProfile },
@@ -256,7 +264,7 @@ const userRoutes = [
 	{ path: "/pages-pricing", component: PagesPricing },
 
 	// this route should be at the end of all other routes
-	{ path: "/", exact: true, component: () => <Redirect to="/calendar" /> }
+	{ path: "/", exact: true, component: () => <Redirect to="/home" /> }
 ];
 
 const authRoutes = [

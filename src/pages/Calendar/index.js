@@ -13,49 +13,49 @@ import Breadcrumbs from '../../components/Common/Breadcrumb';
 
 const DefaultEvents = [{
     id: 1,
-    title: 'Hey!',
+    title: '45 Ingresos Productos',
     start: new Date().setDate(new Date().getDate() + 1),
     className: 'bg-warning text-white'
 },
 {
     id: 2,
-    title: 'See John Deo',
+    title: '10 Delivery',
     start: new Date(),
     end: new Date(),
     className: 'bg-success text-white'
 },
 {
     id: 3,
-    title: 'Meet John Deo',
+    title: '45 Notificaciones',
     start: new Date().setDate(new Date().getDate() + 8),
     className: 'bg-info text-white'
 },
 {
     id: 4,
-    title: 'Buy a Theme',
+    title: '15 Ventas',
     start: new Date().setDate(new Date().getDate() + 7),
-    className: 'bg-primary text-white'
+    className: 'bg-danger text-white'
 }];
 
 const DefaultCategories = [
     {
         id: 1,
-        title: 'New Theme Release',
+        title: 'Movimientos de Delivery',
         type: 'success'
     },
     {
         id: 2,
-        title: 'My Event',
+        title: 'Notificaciones',
         type: 'info'
     },
     {
         id: 3,
-        title: 'Meet Manager',
+        title: 'Movimientos de Bodega',
         type: 'warning'
     },
     {
         id: 4,
-        title: 'Report Error',
+        title: 'Movimientos de Ventas',
         type: 'danger'
     },
 ];
@@ -107,11 +107,11 @@ const Index = (props) => {
      */
     const handleEventClick = (arg) => {
         const eventNew = arg.event;
-        
+
         const event_tmp = { id: eventNew.id, title: eventNew.title, title_category: eventNew.title_category, start: eventNew.start, className: eventNew.classNames, category: eventNew.classNames[0], event_category: eventNew.classNames[0] };
-            
-        setEvent(event_tmp);
-        toggle1();
+
+        //setEvent(event_tmp);
+        //toggle1();
     }
 
     /**
@@ -120,14 +120,14 @@ const Index = (props) => {
     const handleValidEventSubmit = (e, values) => {
         var newEvent = {};
 
-        
+
             newEvent = {
                 id: calendarEvents.length + 1,
                 title: values['title'],
                 start: selectedDay ? selectedDay.date : new Date(),
                 className: values.category + ' text-white'
             };
-        
+
 
         // save new event
         setCalendarEvents(calendarEvents.concat(newEvent));
@@ -187,24 +187,21 @@ const Index = (props) => {
 
         return (
             <React.Fragment>
-                <div className="page-content">
+                <div className="page-content mt-0"   >
                     <Container fluid>
 
-                        {/* Render Breadcrumbs */}
-                        <Breadcrumbs title="Dashboard" breadcrumbItem="Calendar" />
-
                         <Row>
-                            <Col xs={12}>
+                            <Col xl={12}>
                                 <Card>
                                     <CardBody>
                                         <Row>
                                             <Col lg={3}>
                                                 <Button color="primary" className="font-16 btn-block" onClick={() => togglecategory() }>
-                                                    <i className="mdi mdi-plus-circle-outline"></i> Create New Event
+                                                    <i className="mdi mdi-plus-circle-outline"></i> CREAR EVENTO
                                         </Button>
 
                                                 <div id="external-events" className="mt-3">
-                                                    <p className="text-muted">Drag and drop your event or click in the calendar</p>
+                                                    <p className="text-muted">Observe de forma diaria haga click en el módulo y visualice su resumen</p>
 
                                                     {categories.map((category, i) => {
                                                         return <Alert color={category.type}>{category.title} </Alert>
@@ -212,27 +209,24 @@ const Index = (props) => {
                                                 </div>
 
                                                 <div className="mt-5 d-none d-xl-block">
-                                                    <h5 className="text-center">How It Works ?</h5>
+                                                    <h5 className="text-center">Como Funciona este Calendario ?</h5>
 
                                                     <ul className="pl-3">
                                                         <li className="text-muted mb-3">
-                                                            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                                                            Primero seleccione el dia que quiere revisar.
                                                         </li>
                                                         <li className="text-muted mb-3">
-                                                            Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage.
+                                                            Segundo indique que módulo se encuentra en dicho día.
                                                         </li>
                                                         <li className="text-muted mb-3">
-                                                            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                                                            Tercero haga click en la pestaña de color dentro del día para ir al cuadro de resumen.
                                                         </li>
                                                     </ul>
                                                 </div>
                                             </Col>
-                                            <Col className="col-lg-9">
+                                            <Col lg={9}>
                                                 {/* fullcalendar control */}
                                                 <FullCalendar ref={calendarComponentRef} defaultView="dayGridMonth" plugins={[BootstrapTheme, dayGridPlugin, interactionPlugin]}
-                                                    slotDuration={'00:15:00'}
-                                                    minTime={'08:00:00'}
-                                                    maxTime={'19:00:00'}
                                                     handleWindowResize={true}
                                                     themeSystem="bootstrap"
                                                     header={{
@@ -253,7 +247,7 @@ const Index = (props) => {
                                                 {/* New event modal */}
                                                 <Modal isOpen={modal} toggle={() => toggle()} className="">
                                                     <ModalHeader toggle={() => toggle()} tag="h4">
-                                                        Add Event
+                                                      Agregar Evento
                                             </ModalHeader>
                                                     <ModalBody>
                                                         <AvForm onValidSubmit={handleValidEventSubmit}>
@@ -266,23 +260,32 @@ const Index = (props) => {
                                                                 <Col className="col-12">
                                                                     <AvField type="select" name="category" label="Select Category"
                                                                         value={event ? event.category : 'bg-primary'}>
-                                                                        <option value="bg-danger">Danger</option>
-                                                                        <option value="bg-success">Success</option>
+                                                                        <option value="bg-danger">VENTAS</option>
+                                                                        <option value="bg-warning">BODEGA</option>
+                                                                        <option value="bg-success">DELIVERY</option>
+                                                                        {
+                                                                          /**
                                                                         <option value="bg-primary">Primary</option>
                                                                         <option value="bg-info">Info</option>
                                                                         <option value="bg-dark">Dark</option>
-                                                                        <option value="bg-warning">Warning</option>
+                                                                        **/
+                                                                      }
+
                                                                     </AvField>
                                                                 </Col>
                                                             </Row>
+                                                            {
+                                                              /**
                                                             <Row>
                                                                 <Col>
                                                                     <div className="text-right">
-                                                                        <button type="button" className="btn btn-light mr-2" onClick={() => toggle()}>Close</button>
-                                                                        <button type="submit" className="btn btn-success save-event">Save</button>
+                                                                        <button type="button" className="btn btn-light mr-2" onClick={() => toggle()}>Cerrar</button>
+                                                                        <button type="submit" className="btn btn-success save-event">Guardar</button>
                                                                     </div>
                                                                 </Col>
                                                             </Row>
+                                                            **/
+                                                          }
                                                         </AvForm>
                                                     </ModalBody>
                                                 </Modal>
@@ -348,14 +351,18 @@ const Index = (props) => {
                                                                     </AvField>
                                                                 </Col>
                                                             </Row>
+                                                            {
+                                                              /**
                                                             <Row>
                                                                 <Col>
                                                                     <div className="text-right">
-                                                                        <button type="button" className="btn btn-light mr-2" onClick={() => togglecategory()}>Close</button>
+                                                                        <button type="button" className="btn btn-light mr-2" onClick={() => togglecategory()}>Cerrar</button>
                                                                         <button type="submit" className="btn btn-success save-event">Save</button>
                                                                     </div>
                                                                 </Col>
                                                             </Row>
+                                                            **/
+                                                          }
                                                         </AvForm>
                                                     </ModalBody>
                                                 </Modal>
@@ -371,5 +378,5 @@ const Index = (props) => {
             </React.Fragment>
               );
         }
-            
+
 export default Index;

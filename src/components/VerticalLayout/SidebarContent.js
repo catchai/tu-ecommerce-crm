@@ -1,14 +1,43 @@
-import React, {  useEffect } from 'react';
+import React,   { useState , useEffect } from 'react';
 
 // MetisMenu
 import MetisMenu from "metismenujs";
 import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { Container, Row, Col, Card,Alert, CardBody,Media, Button } from "reactstrap";
 
 //i18n
 import { withNamespaces } from 'react-i18next';
 
+
+import avatar from '../../assets/images/users/avatar-1.jpg';
+
 const SidebarContent = (props) => {
+
+  const [email, setemail] = useState("");
+  const [name, setname] = useState("");
+  const [idx, setidx] = useState(1);
+
+  useEffect(() => {
+          if(localStorage.getItem("authUser"))
+          {
+            const obj = JSON.parse(localStorage.getItem("authUser"));
+            if(process.env.REACT_APP_DEFAULTAUTH === 'firebase')
+            {
+               setname(obj.displayName);
+               setemail(obj.email);
+               setidx(obj.uid);
+            }
+             else if((process.env.REACT_APP_DEFAULTAUTH === 'fake') || (process.env.REACT_APP_DEFAULTAUTH === 'jwt'))
+            {
+               setname(obj.username);
+               setemail(obj.email);
+               setidx(obj.uid);
+            }
+          }
+     },[props.success]);
+
+
 
     // Use ComponentDidMount and ComponentDidUpdate method symultaniously
      useEffect(() => {
@@ -65,6 +94,31 @@ const SidebarContent = (props) => {
 
             <React.Fragment>
                  <div id="sidebar-menu">
+
+
+                 <Container>
+                <Row>
+                 <Col lg="12">
+                     <Card className="bg-dark">
+                         <CardBody>
+                             <Media>
+                                 <div className="mr-0">
+                                     <img src={avatar} height="22" alt="" className="avatar-md rounded-circle img-thumbnail"/>
+                                 </div>
+                                 <Media body className="align-self-center">
+                                     <div className="text-muted">
+                                         <h4>{name}</h4>
+                                         <p className="mb-1 text-light">{email}</p>
+                                         <p className="mb-0 text-light">Id no: #123</p>
+                                     </div>
+                                 </Media>
+                             </Media>
+                         </CardBody>
+                     </Card>
+                 </Col>
+                 </Row>
+              </Container>
+
                 <ul className="metismenu list-unstyled" id="side-menu">
                     <li className="menu-title">{props.t('Menu') }  </li>
                     <li>
@@ -79,7 +133,7 @@ const SidebarContent = (props) => {
                                     <span>{'Módulo Venta'}</span>
                                 </Link>
                                 <ul className="sub-menu" aria-expanded="false">
-                                    <li><Link to="/dashboard-saas"> {'Controller' }</Link></li>
+                                    <li><Link to="/resumen"> {'Resumen' }</Link></li>
                                     <li><Link to="/ecommerce-orders">  <span>{props.t('Pedidos') }</span></Link></li>
                                     <li><Link to="/ecommerce-customers">{props.t('Clientes') }</Link></li>
                                 </ul>

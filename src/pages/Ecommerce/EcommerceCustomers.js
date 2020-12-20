@@ -12,7 +12,7 @@ const EcommerceCustomers = (props) => {
                 <div className="page-content">
                     <Container fluid>
 
-                        <Breadcrumbs title="Ecommerce" breadcrumbItem="Customers" />
+                        <Breadcrumbs title="Menú" breadcrumbItem="Clientes" />
                         <Row>
                             <Col xs="12">
                                 <Card>

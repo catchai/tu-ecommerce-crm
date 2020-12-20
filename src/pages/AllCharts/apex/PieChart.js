@@ -1,4 +1,4 @@
-    import React from 'react';
+      import React from 'react';
 import ReactApexChart from 'react-apexcharts';
 
     const PieChart = (props) => {
@@ -27,12 +27,12 @@ import ReactApexChart from 'react-apexcharts';
                         },
                     }
                 }]
-              
+
               };
 
       return (
               <ReactApexChart options={options} series={series} type="pie" height="380" />
-          
+
       );
     }
 

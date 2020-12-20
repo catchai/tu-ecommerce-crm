@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Container, Row, Col, Input, Button, Card, CardBody, Table, Label, Badge, UncontrolledTooltip} from "reactstrap";
 
 //Import Breadcrumb
-import Breadcrumbs from '../../components/Common/Breadcrumb'; 
+import Breadcrumbs from '../../components/Common/Breadcrumb';
 
 import * as firebase from "firebase";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -44,13 +44,32 @@ class EcommerceOrders extends Component {
        this.peticionGet();
     }
 
+    peticionDelete=()=>{
+        if(window.confirm(`Estás seguro que deseas eliminar el producto ${this.state.form && this.state.form.orderId}?`))
+        {
+        firebase.database().ref(`Pedidos/${this.state.id}`).remove(
+         error=>{
+           if(error)console.log(error)
+         });
+        }
+    }
+
+
+    // switcher
+    seleccionarProducto=(order, id, caso)=>{
+        this.setState({form: order, id: id});
+        localStorage.setItem('id',id);
+        (caso==="Editar")?this.setState({modalEditar: true}):
+          this.peticionDelete()
+    }
+
 
 render(){
     return (
            <React.Fragment>
                 <div className="page-content">
                     <Container fluid>
-                        <Breadcrumbs title="Comercio" breadcrumbItem="Ventas" />
+                        <Breadcrumbs title="Home" breadcrumbItem="Ventas" />
                         <Row>
                             <Col xs="12">
                                 <Card>
@@ -122,7 +141,8 @@ render(){
                                                                     </Button>
                                                                 </td>
                                                                 <td>
-                                                                    <Link to={{pathname: "/ecommerce-edit-order", value: { i }}} className="mr-3 text-primary">
+                                                                <Link to={`/ecommerce-edit-order/${i}`} onClick={()=>this.seleccionarProducto(this.state.data[i], i, 'Editar')}
+                                                               className="mr-3 text-primary">
                                                                         <i className="mdi mdi-pencil font-size-18 mr-3" id="edittooltip"></i>
                                                                         <UncontrolledTooltip placement="top" target="edittooltip">
                                                                             Editar

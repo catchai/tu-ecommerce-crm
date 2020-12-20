@@ -18,7 +18,7 @@ import Select from "react-select";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 import * as firebase from "firebase";
 import "bootstrap/dist/css/bootstrap.min.css";
-// Rating Plugin 
+// Rating Plugin
 import RatingTooltip from "react-rating-tooltip";
 
 class  EcommerceEditOrder extends Component {
@@ -27,11 +27,8 @@ class  EcommerceEditOrder extends Component {
 
 
 render() {
-  const { params } = this.props;
-  const { id } = params;
-  // console.log(this.props);
-  // const { params } = this.props;
-  // const { id } = params;
+
+
   let catego = [];
   firebase.database().ref("data/category").on("child_added", (snap) => {
     catego.push(snap.val());
@@ -48,12 +45,12 @@ render() {
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumb */}
-          <Breadcrumbs title="Comercio" breadcrumbItem="Editar Orden de Compra" />
+          <Breadcrumbs title="Resumen" linktitle="/resumen" breadcrumbItem="Editar Orden de Compra" />
           <Row>
             <Col xs="12">
               <Card>
                 <CardBody>
-                  <CardTitle>Edición Orden de Compra  id:{id}</CardTitle>
+                  <CardTitle>Edición Orden de Compra  id:</CardTitle>
                   <CardSubtitle className="mb-3">
                     Completar toda la información requerida
                   </CardSubtitle>
@@ -130,20 +127,25 @@ render() {
                       <Col sm="6">
 
                         <FormGroup>
-
-                        </FormGroup>
                         <Label htmlFor="text">
                         Categoría
                         </Label>
-                         <Select  options={catego}  value={this.state.categories} onChange={this.onSelectCategoryChange} />
-
-                        <FormGroup>
+                        {
+                        /**
+                         <Select  options={catego}  value={this.state.category} onChange={this.onSelectCategoryChange} />
+                         **/
+                       }
                         </FormGroup>
-                        <Label htmlFor="text">
-                          Ingredientes
-                        </Label>
-                        <Select options={flavors}  value={this.state.flavors} onChange={this.onSelectFlavorsChange}/>
-
+                        <FormGroup>
+                          <Label htmlFor="text">
+                            Ingredientes
+                          </Label>
+                          {
+                          /**
+                          <Select options={flavors}  value={this.state.flavors} onChange={this.onSelectFlavorsChange}/>
+                          **/
+                        }
+                        </FormGroup>
                         <FormGroup>
                           <Label htmlFor="text">
                             Descripción Producto
@@ -166,7 +168,7 @@ render() {
                     >
                       Guardar Cambios
                     </Button>
-                    <Link to="/ecommerce-orders">
+                    <Link to="/resumen">
                     <Button
                       type="button"
                       color="secondary"

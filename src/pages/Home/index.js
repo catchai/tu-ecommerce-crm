@@ -23,7 +23,7 @@ import Breadcrumbs from '../../components/Common/Breadcrumb';
 //i18n
 import { withNamespaces } from 'react-i18next';
 
- const Dashboard = (props) => {
+ const Home = (props) => {
 
      const [modal, setmodal] = useState(false);
 
@@ -47,7 +47,7 @@ import { withNamespaces } from 'react-i18next';
 
                         <Row>
                                 <Col xl={4} md={4}>
-                                <Link to="/dashboard-saas">
+                                <Link to="/resumen">
                                     <div className="card">
                                         <div className="card-body bg-success text-center rounded">
                                             <div className="color-box bg-success p-4 rounded">
@@ -78,10 +78,11 @@ import { withNamespaces } from 'react-i18next';
                                       </div>
                                   </Col>
                         </Row>
-
+                        {/* Render Breadcrumb */}
+                        <Breadcrumbs title="Home" breadcrumbItem="Módulos" />
                         <Row>
 
-                            <Col xs="12">
+                            <Col xl={12}>
 
                               <Calendar />
                             </Col>
@@ -93,4 +94,4 @@ import { withNamespaces } from 'react-i18next';
           );
         }
 
-export default withNamespaces()(Dashboard);
+export default withNamespaces()(Home);
