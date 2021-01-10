@@ -15,6 +15,8 @@ import TasksList from "../pages/Tasks/tasks-list";
 import TasksKanban from "../pages/Tasks/tasks-kanban";
 import TasksCreate from "../pages/Tasks/tasks-create";
 
+import Ticket from "../pages/Ticket/tasks-create";
+
 // //Projects
 import ProjectsGrid from "../pages/Projects/projects-grid";
 import ProjectsList from "../pages/Projects/projects-list";
@@ -43,6 +45,8 @@ import EmailRead from "../pages/Email/email-read";
 import InvoicesList from "../pages/Invoices/invoices-list";
 import InvoiceDetail from "../pages/Invoices/invoices-detail";
 
+import DetallePedido from "../pages/DetallePedido/invoices-detail";
+
 // Authentication related pages
 import Login from "../pages/Authentication/Login";
 import Logout from "../pages/Authentication/Logout";
@@ -60,6 +64,8 @@ import Home from "../pages/Home/index";
 //import DashboardSaas from "../pages/Dashboard-saas/index";
 import Controller from "../pages/Controller/index";
 import Resumen from "../pages/Resumen/index";
+
+import ControllerSale from "../pages/ControllerSale/index";
 
 
 // Charts
@@ -134,9 +140,9 @@ import Pages404 from "../pages/Utility/pages-404";
 import Pages500 from "../pages/Utility/pages-500";
 
 //Contacts
-import ContactsGrid from "../pages/Contacts/contacts-grid";
-import ContactsList from "../pages/Contacts/contacts-list";
-import ContactsProfile from "../pages/Contacts/contacts-profile";
+import ContactsGrid from "../pages/Usuarios/contacts-grid";
+import ContactsList from "../pages/Usuarios/contacts-list";
+import ContactsProfile from "../pages/Usuarios/contacts-profile";
 
 const userRoutes = [
 
@@ -144,7 +150,8 @@ const userRoutes = [
 	// //calendar
 
 	{ path: "/home", component: Home },
-	{ path: "/controller", component: Controller },
+	// { path: "/controller", component: Controller },
+	{ path: "/controllersale", component: ControllerSale },
 	{ path: "/resumen", component: Resumen },
 
 
@@ -179,11 +186,16 @@ const userRoutes = [
 	//Invoices
 	{ path: "/invoices-list", component: InvoicesList },
 	{ path: "/invoices-detail", component: InvoiceDetail },
+	{ path: "/detalle-pedido", component: DetallePedido },
 
 	// Tasks
 	{ path: "/tasks-list", component: TasksList },
 	{ path: "/tasks-kanban", component: TasksKanban },
 	{ path: "/tasks-create", component: TasksCreate },
+
+  { path: "/ticket", component: Ticket },
+
+
 
 	//Projects
 	{ path: "/projects-grid", component: ProjectsGrid },
