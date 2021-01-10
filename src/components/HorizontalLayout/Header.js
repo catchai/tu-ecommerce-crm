@@ -341,7 +341,7 @@ const Header = (props) => {
 
               <NotificationDropdown />
 
-              <ProfileMenu />
+            
 
               // Icono de configuracion
               <div className="dropdown d-inline-block">
