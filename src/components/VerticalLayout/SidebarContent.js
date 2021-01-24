@@ -4,7 +4,7 @@ import React,   { useState , useEffect } from 'react';
 import MetisMenu from "metismenujs";
 import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { Container, Row, Col, Card,Alert, CardBody,Media, Button } from "reactstrap";
+import { Container, Row, Col, Card,  CardBody,Media } from "reactstrap";
 
 //i18n
 import { withNamespaces } from 'react-i18next';
@@ -120,13 +120,18 @@ const SidebarContent = (props) => {
               </Container>
 
                 <ul className="metismenu list-unstyled" id="side-menu">
-                    <li className="menu-title">{props.t('Menu') }  </li>
+
+
+                    <li className="menu-title">{props.t('Home') }  </li>
                     <li>
-                        <Link to="/calendar" className="waves-effect">
+                        <Link to="/home" className="waves-effect">
                                    <i className="bx bx-calendar"></i><span className="badge badge-pill badge-info float-right"></span>
-                                   <span>{'Calendario'}</span>
+                                   <span>{'Home'}</span>
                                </Link>
                       </li>
+
+
+                    <li className="menu-title">{props.t('Menu') }  </li>
                      <li>
                          <Link to="/#" className="waves-effect">
                                     <i className="bx bx-money"></i><span className="badge badge-pill badge-info float-right"></span>
@@ -136,12 +141,13 @@ const SidebarContent = (props) => {
                                     <li><Link to="/resumen"> {'Resumen' }</Link></li>
                                     <li><Link to="/ecommerce-orders">  <span>{props.t('Pedidos') }</span></Link></li>
                                     <li><Link to="/ecommerce-customers">{props.t('Clientes') }</Link></li>
+                                    <li><Link to="/controllersale">{props.t('Controller') }</Link></li>
                                 </ul>
                      </li>
 
                      <li>
                          <Link to="/#" className="waves-effect">
-                                    <i className="bx bx-money"></i><span className="badge badge-pill badge-info float-right"></span>
+                                    <i className="bx bx-store"></i><span className="badge badge-pill badge-info float-right"></span>
                                     <span>{'Módulo Bodega'}</span>
                                 </Link>
                                 <ul className="sub-menu" aria-expanded="false">
@@ -154,7 +160,7 @@ const SidebarContent = (props) => {
                      </li>
                      <li>
                          <Link to="/#" className="waves-effect">
-                                    <i className="bx bx-money"></i><span className="badge badge-pill badge-info float-right"></span>
+                                    <i className="bx bxs-truck"></i><span className="badge badge-pill badge-info float-right"></span>
                                     <span>{'Módulo Delivery'}</span>
                                 </Link>
                                 <ul className="sub-menu" aria-expanded="false">
@@ -163,36 +169,56 @@ const SidebarContent = (props) => {
                                 </ul>
                      </li>
 
-                    <li className="menu-title">{'Herramientas'}</li>
 
 
-                    <li>
-                        <Link to="/#" className="has-arrow waves-effect">
-                            <i className="bx bx-image-add"></i>
-                            <span>{props.t('Medios') }</span>
-                        </Link>
-                        <ul className="sub-menu" aria-expanded="false">
-                            <li><Link to="/form-uploads"> {props.t('Gestión de Imágenes') }</Link></li>
-                            <li><Link to="/ui-image-cropper"> {props.t('Editor de Imágenes') }</Link></li>
-                        </ul>
-                    </li>
+                     <li className="menu-title">{'Usuarios'}</li>
 
 
+                     <li>
+                         <Link to="/ticket" className="waves-effect">
+                             <i className="bx bx-users"></i>
+                             <span>{props.t('Gestión de Usuarios') }</span>
+                         </Link>
+                     </li>
 
 
-                    <li>
-                        <Link to="/#" className="has-arrow waves-effect">
-                            <i className="bx bxs-user-detail"></i>
-                            <span>{props.t('Contactos')}</span>
-                        </Link>
-                        <ul className="sub-menu" aria-expanded="false">
-                            <li><Link to="contacts-grid">{props.t('Base de Usuario')}</Link></li>
-                            <li><Link to="contacts-list">{props.t('Lista de Usuarios')}</Link></li>
-                            <li><Link to="contacts-profile">{props.t('Perfiles')}</Link></li>
-                        </ul>
-                    </li>
+            {
+                 // <li>
+                 //        <Link to="/#" className="has-arrow waves-effect">
+                 //            <i className="bx bx-image-add"></i>
+                 //            <span>{props.t('Medios') }</span>
+                 //        </Link>
+                 //        <ul className="sub-menu" aria-expanded="false">
+                 //            <li><Link to="/form-uploads"> {props.t('Gestión de Imágenes') }</Link></li>
+                 //            <li><Link to="/ui-image-cropper"> {props.t('Editor de Imágenes') }</Link></li>
+                 //        </ul>
+                 //    </li>
+                 //
+                 //
+                 //
+                 //
+                 //    <li>
+                 //        <Link to="/#" className="has-arrow waves-effect">
+                 //            <i className="bx bxs-user-detail"></i>
+                 //            <span>{props.t('Contactos')}</span>
+                 //        </Link>
+                 //        <ul className="sub-menu" aria-expanded="false">
+                 //            <li><Link to="contacts-grid">{props.t('Base de Usuario')}</Link></li>
+                 //            <li><Link to="contacts-list">{props.t('Lista de Usuarios')}</Link></li>
+                 //            <li><Link to="contacts-profile">{props.t('Perfiles')}</Link></li>
+                 //        </ul>
+                 //    </li>
+                  }
+
+                  <li className="menu-title">{'Soporte'}</li>
 
 
+                  <li>
+                      <Link to="/ticket" className="waves-effect">
+                          <i className="bx bx-support"></i>
+                          <span>{props.t('Ticket') }</span>
+                      </Link>
+                  </li>
 
 
 

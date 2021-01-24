@@ -131,5 +131,5 @@ function printInvoice() {
             </React.Fragment>
           );
     }
-        
+
 export default InvoiceDetail;

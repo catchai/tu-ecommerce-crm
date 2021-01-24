@@ -9,8 +9,6 @@ import modalimage1 from "../../assets/images/product/img-7.png";
 import modalimage2 from "../../assets/images/product/img-4.png";
 
 // Pages Components
-import WelcomeComp from "./WelcomeComp";
-import MonthlyEarning from "./MonthlyEarning";
 import SocialSource from "./SocialSource";
 import ActivityComp from "./ActivityComp";
 import TopCities from "./TopCities";
@@ -48,7 +46,7 @@ import { withNamespaces } from 'react-i18next';
                         </Link>
 
                         <Row>
-{
+                        {
                           /**  <Col xl="4">
                                 <WelcomeComp />
                                 <MonthlyEarning />

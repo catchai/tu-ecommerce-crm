@@ -27,6 +27,7 @@ import ProjectsCreate from "../pages/Projects/projects-create";
 import EcommerceProducts from "../pages/Ecommerce/EcommerceProducts";
 import EcommerceProductDetail from "../pages/Ecommerce/EcommerceProductDetail";
 import EcommerceOrders from "../pages/Ecommerce/EcommerceOrders";
+import EcommerceCallPedido from "../pages/Ecommerce/EcommerceCallPedido";
 import EcommerceAddOrder from "../pages/Ecommerce/EcommerceAddOrder";
 import EcommerceEditOrder from "../pages/Ecommerce/EcommerceEditOrder";
 import EcommerceCustomers from "../pages/Ecommerce/EcommerceCustomers";
@@ -168,7 +169,9 @@ const userRoutes = [
 	//Ecommerce
 	{ path: "/ecommerce-products", component: EcommerceProducts },
 	{ path: "/ecommerce-product-detail/:id", component: EcommerceProductDetail },
-	{ path: "/ecommerce-orders", component: EcommerceOrders },
+  // Listado de Ordenes
+	{ path: "/ecommerce-orders", component: EcommerceCallPedido },
+
 	{ path: "/ecommerce-add-order", component: EcommerceAddOrder },
 	{ path: "/ecommerce-edit-order/:id", component: EcommerceEditOrder },
 	{ path: "/ecommerce-customers", component: EcommerceCustomers },

@@ -4,12 +4,12 @@ import { Container, Row, Col, Card, CardBody, Table, Label, Input, Button, Badge
 //Import Breadcrumb
 import Breadcrumbs from '../../components/Common/Breadcrumb';
 
-import Clientes from './EcommerceCliente';
+import Pedidos from './EcommercePedidos';
 
 // comunicarnos con firebase
 import * as firebase from "firebase";
 
-class EcommerceCustomers extends Component {
+class EcommerceCallPedidos extends Component {
 
 
 
@@ -73,8 +73,8 @@ peticionGet = () => {
   });
 }
 
-
-example = () => {
+// cargar datos de pedidos
+loadData = () => {
 
   var columns = [];
   var data = [];
@@ -92,27 +92,23 @@ example = () => {
 
   this.setState({ rows: data})
 
-
-
 }
 
 
   // Se carga al incio del componente
   componentDidMount() {
-     this.peticionGet();
-     this.authListener();
-     this.example();
+     // this.peticionGet();
+     // this.authListener();
+     // this.loadData();
    }
 
   render() {
 
-
-
     return (
            <React.Fragment>
-                <Clientes item={this.state.rows} />
+                <Pedidos item={this.state.rows} />
             </React.Fragment>
           )};
     }
 
-export default EcommerceCustomers;
+export default EcommerceCallPedidos;

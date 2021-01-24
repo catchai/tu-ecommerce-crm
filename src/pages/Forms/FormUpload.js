@@ -105,34 +105,7 @@ const FormUpload = (props) => {
   };
 
 // adherido >>>>>>>>>>>>>>>>>>><
-
-const handleUpload = () => {
-
-  const storage = firebase.storage();
-
-  const uploadTask = storage.ref(`productos/${image.name}`).put(image);
-  uploadTask.on(
-    "state_changed",
-    (snapshot) => {
-      const progress = Math.round(
-        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-      );
-      setProgress(progress);
-    },
-    (error) => {
-      console.log(error);
-    },
-    () => {
-      storage
-        .ref("productos")
-        .child(image.name)
-        .getDownloadURL()
-        .then((url) => {
-          setUrl(url);
-        });
-    }
-  );
-};
+ 
 
 console.log("image: ", image);
 

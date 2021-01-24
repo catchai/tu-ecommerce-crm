@@ -13,8 +13,7 @@ import {
   CardSubtitle,
   Button,
   Label,
-} from "reactstrap";
-import Select from "react-select";
+} from "reactstrap"; 
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 import * as firebase from "firebase";
 import "bootstrap/dist/css/bootstrap.min.css";

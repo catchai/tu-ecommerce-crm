@@ -1,43 +1,58 @@
-import React, { useState } from 'react';
-import { Container, Row, Col, Button, Card, CardSubtitle, CardBody, CardTitle, Modal, ModalHeader, ModalBody, ModalFooter, Media, Table } from "reactstrap";
+import React, { Component } from 'react';
+import { Container, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 
 //import Charts
-import StackedColumnChart from "./StackedColumnChart";
 import Calendar from '../Calendar';
-
-import modalimage1 from "../../assets/images/product/img-7.png";
-import modalimage2 from "../../assets/images/product/img-4.png";
-
-// Pages Components
-import WelcomeComp from "./WelcomeComp";
-import MonthlyEarning from "./MonthlyEarning";
-import SocialSource from "./SocialSource";
-import ActivityComp from "./ActivityComp";
-import TopCities from "./TopCities";
-import LatestTranaction from "./LatestTranaction";
-
-//Import Breadcrumb
-import Breadcrumbs from '../../components/Common/Breadcrumb';
-
 //i18n
 import { withNamespaces } from 'react-i18next';
+import * as firebase from "firebase";
 
- const Home = (props) => {
 
-     const [modal, setmodal] = useState(false);
+//
+// var DefaultEvents = [{
+//     title: '45 Ingresos Productos',
+//     date: '2021-01-01'
+// }
+// ,
+// {
+//     id: 2,
+//     title: '10 Delivery',
+//     start: new Date(),
+//     end: new Date(),
+//     className: 'bg-danger text-white'
+// },
+// {
+//     id: 3,
+//     title: '45 Notificaciones',
+//     start: new Date().setDate(new Date().getDate() + 8),
+//     className: 'bg-info text-white'
+// },
+// {
+//     id: 4,
+//     title: '15 Ventas',
+//     start: new Date().setDate(new Date().getDate() + 7),
+//     className: 'bg-success text-white'
+// }
+// ];
 
-          const reports = [
-                { title: "VENTAS", iconClass: "bx-money", description: "1,235" },
-                { title: "BODEGAS", iconClass: "bx-store", description: "$35, 723" },
-                { title: "DELIVERY", iconClass: "bx-moto", description: "$16.2" }
-            ];
-         const email = [
-                { title: "Week", linkto: "#", isActive: false },
-                { title: "Month", linkto: "#", isActive: false },
-                { title: "Year", linkto: "#", isActive: true }
-            ];
 
+
+
+var DefaultEvents = [];
+class Home extends Component {
+
+  constructor(props) {
+     super(props);
+     this.state = { data : ""};
+
+   }
+   componentDidMount() {
+
+    }
+
+
+   render() {
           return (
               <React.Fragment>
                 <div className="page-content">
@@ -60,8 +75,8 @@ import { withNamespaces } from 'react-i18next';
                                 </Col>
                                   <Col xl={4} md={4}>
                                       <div className="card">
-                                          <div className="card-body bg-warning text-center rounded">
-                                              <div className="color-box bg-warning p-4 rounded">
+                                          <div className="card-body bg-secondary text-center rounded">
+                                              <div className="color-box bg-secondary p-4 rounded">
                                                   <h5 style={{ fontSize: 20 }} className="my-3  text-white">B O D E G A</h5>
                                               </div>
                                           </div>
@@ -69,8 +84,8 @@ import { withNamespaces } from 'react-i18next';
                                   </Col>
                                   <Col xl={4} md={4}>
                                       <div className="card">
-                                          <div className="card-body bg-danger text-center rounded">
-                                              <div className="color-box bg-danger p-4 rounded">
+                                          <div className="card-body bg-secondary text-center rounded">
+                                              <div className="color-box bg-secondary p-4 rounded">
                                                   <h5  style={{ fontSize: 20 }} className="my-3 text-white"> D E L I V E R Y</h5>
                                               </div>
 
@@ -79,12 +94,12 @@ import { withNamespaces } from 'react-i18next';
                                   </Col>
                         </Row>
                         {/* Render Breadcrumb */}
-                        <Breadcrumbs title="Home" breadcrumbItem="Módulos" />
+                        {/*<Breadcrumbs title="Home" breadcrumbItem="Módulos" /> */}
                         <Row>
 
                             <Col xl={12}>
 
-                              <Calendar />
+                              <Calendar eventos={this.state.data}/>
                             </Col>
 
                         </Row>
@@ -93,5 +108,6 @@ import { withNamespaces } from 'react-i18next';
             </React.Fragment>
           );
         }
+      }
 
-export default withNamespaces()(Home);
+export default  Home;

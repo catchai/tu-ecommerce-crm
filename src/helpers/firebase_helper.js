@@ -5,6 +5,7 @@ import "firebase/auth";
 import "firebase/firestore";
 
 class FirebaseAuthBackend {
+
   constructor(firebaseConfig) {
     if (firebaseConfig) {
       // Initialize Firebase
@@ -37,6 +38,7 @@ class FirebaseAuthBackend {
         );
     });
   };
+
 
   /**
    * Registers the user with given details

@@ -111,7 +111,7 @@ const FormStorage = () => {
       <br />
       {url}
       <br />
-      <img src={url || "http://via.placeholder.com/300"} alt="firebase-image" />
+    
     </div>
       </React.Fragment>
   );
