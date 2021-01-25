@@ -10,8 +10,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 class EcommerceOrders extends Component {
 
+  constructor(props){
+    super(props);
+    this.peticionGet=this.peticionGet.bind(this);
+
   // Paso1 : Definicion
-  state = {
+  this.state = {
       data: [],
       modalInsertar: false,
       modalEditar: false,
@@ -28,14 +32,25 @@ class EcommerceOrders extends Component {
       },
       id: 0
     };
+  }
 
-    peticionGet = () => {
-        firebase.database().ref("Pedidos").on("value", (pedidos) => {
-          if (pedidos.val() !== null) {
-            this.setState({ ...this.state.data, data: pedidos.val() });
-          } else {
-            this.setState({ data: [] });
-          }
+    peticionGet(){
+        console.log('>>>>>>>>>>>>>>>>>1');
+        let  pedidosRef = firebase.database().ref(`Empresas/PollosKing/Users`);
+        console.log('>>>>>>>>>>>>>>>>>2');
+        pedidosRef.on("value", (users) => {
+
+            console.log('>>>>>>>>>>>>>>>>> inside');
+            console.log(users.val());
+
+          // if (pedidos.val() !== null) {
+          //   this.setState({ ...this.state.data, data: pedidos.val() });
+          // } else {
+          //   this.setState({ data: [] });
+          // }
+
+
+
         });
       };
 

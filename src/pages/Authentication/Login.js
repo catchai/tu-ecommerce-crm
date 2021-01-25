@@ -9,6 +9,8 @@ import { withRouter, Link } from 'react-router-dom';
 // availity-reactstrap-validation
 import { AvForm, AvField } from 'availity-reactstrap-validation';
 
+import LoginGoogle from './LoginGoogle';
+
 // actions
 import { loginUser,apiError } from '../../store/actions';
 
@@ -18,8 +20,14 @@ import logo from "../../assets/images/logo.svg";
 
  const Login = (props) => {
 
+
+
+
+
     // handleValidSubmit
   function  handleValidSubmit(event, values) {
+
+        console.log('Login', 'handleValidSubmit', values);
         props.loginUser(values, props.history);
     }
           return (
@@ -55,33 +63,35 @@ import logo from "../../assets/images/logo.svg";
                                                 </div>
                                             </Link>
                                         </div>
-                                        <div className="p-2">
-
-                                            <AvForm className="form-horizontal" onValidSubmit={(e,v) => { handleValidSubmit(e,v) }}>
-
-                                                {props.error && props.error ? <Alert color="danger">{props.error}</Alert> : null}
-
-                                                <div className="form-group">
-                                                    <AvField name="email" label="Correo" value="admin@tu-ecommerce.cl" className="form-control" placeholder="Ingrese Correo" type="email" required />
-                                                </div>
-
-                                                <div className="form-group">
-                                                    <AvField name="password" label="Contraseña" value="123456" type="password" required placeholder="Ingrese Contraseña" />
-                                                </div>
-
-                                                <div className="custom-control custom-checkbox">
-                                                    <input type="checkbox" className="custom-control-input" id="customControlInline" />
-                                                    <label className="custom-control-label" htmlFor="customControlInline">Recordar Datos</label>
-                                                </div>
-
-                                                <div className="mt-3">
-                                                    <button className="btn btn-primary btn-block waves-effect waves-light" type="submit">Ingresar</button>
-                                                </div>
-
-                                                <div className="mt-4 text-center">
-                                                    <Link to="/forgot-password" className="text-muted"><i className="mdi mdi-lock mr-1"></i>  Olvido su Contraseña?</Link>
-                                                </div>
-                                            </AvForm>
+                                        <div className="p-2 center flex">
+{
+                                            // <AvForm className="form-horizontal" onValidSubmit={(e,v) => { handleValidSubmit(e,v) }}>
+                                            //
+                                            //     {props.error && props.error ? <Alert color="danger">{props.error}</Alert> : null}
+                                            //
+                                            //     <div className="form-group">
+                                            //         <AvField name="email" label="Correo" value="admin@tu-ecommerce.cl" className="form-control" placeholder="Ingrese Correo" type="email" required />
+                                            //     </div>
+                                            //
+                                            //     <div className="form-group">
+                                            //         <AvField name="password" label="Contraseña" value="123456" type="password" required placeholder="Ingrese Contraseña" />
+                                            //     </div>
+                                            //
+                                            //     <div className="custom-control custom-checkbox">
+                                            //         <input type="checkbox" className="custom-control-input" id="customControlInline" />
+                                            //         <label className="custom-control-label" htmlFor="customControlInline">Recordar Datos</label>
+                                            //     </div>
+                                            //
+                                            //     <div className="mt-3">
+                                            //         <button className="btn btn-primary btn-block waves-effect waves-light" type="submit">Ingresar</button>
+                                            //     </div>
+                                            //
+                                            //     <div className="mt-4 text-center">
+                                            //         <Link to="/forgot-password" className="text-muted"><i className="mdi mdi-lock mr-1"></i>  Olvido su Contraseña?</Link>
+                                            //     </div>
+                                            // </AvForm>
+}
+                                                <LoginGoogle />
                                         </div>
                                     </CardBody>
                                 </Card>

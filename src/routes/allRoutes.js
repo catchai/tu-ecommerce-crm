@@ -50,6 +50,7 @@ import DetallePedido from "../pages/DetallePedido/invoices-detail";
 
 // Authentication related pages
 import Login from "../pages/Authentication/Login";
+import LoginContent from "../pages/Authentication/LoginContent";
 import Logout from "../pages/Authentication/Logout";
 import Register from "../pages/Authentication/Register";
 import ForgetPwd from "../pages/Authentication/ForgetPassword";
@@ -284,7 +285,7 @@ const userRoutes = [
 
 const authRoutes = [
 	{ path: "/logout", component: Logout },
-	{ path: "/login", component: Login },
+	{ path: "/login", component: LoginContent },
 	{ path: "/forgot-password", component: ForgetPwd },
 	{ path: "/register", component: Register },
 

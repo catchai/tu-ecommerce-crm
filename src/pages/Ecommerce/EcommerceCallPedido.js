@@ -1,8 +1,4 @@
-import React, { Fragment, Component, useState, state  } from "react";
-import { Container, Row, Col, Card, CardBody, Table, Label, Input, Button, Badge, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Pagination, PaginationItem, PaginationLink } from 'reactstrap';
-
-//Import Breadcrumb
-import Breadcrumbs from '../../components/Common/Breadcrumb';
+import React, { Component } from "react";
 
 import Pedidos from './EcommercePedidos';
 
