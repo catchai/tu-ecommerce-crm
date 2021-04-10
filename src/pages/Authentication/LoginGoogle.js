@@ -56,11 +56,12 @@ export default class LoginGoogle extends Component {
 
     var user = firebase.auth().currentUser;
     if(user){
-      let  pedidosRef = firebase.database().ref(`Empresas/PollosKing/Users/${user.uid}/info`);
+      let  pedidosRef = firebase.database().ref(`Empresas/PollosKing/Users/${user.uid}/crm`);
         pedidosRef.once("value", (currentuser) => {
         if (currentuser.val() !== null) {
-
+            alert('ohhhh');
             if(currentuser.child("rolUser").val() === 'Owner') {
+            
               this.setState({ ...this.state.info, info: currentuser.val() });
               console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',currentuser.val());
               this.setState({ autorizado: true});
@@ -73,6 +74,9 @@ export default class LoginGoogle extends Component {
     {
         this.logout();
         this.setState({message: 'Usted no se encuentra autorizado'});
+    }else {
+      alert('Usuario autorizado');
+
     }
   }
 
